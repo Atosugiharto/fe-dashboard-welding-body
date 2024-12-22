@@ -1,0 +1,59 @@
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import Spinner from "./Spinner";
+
+export const MenuDate = ({ menu }) => {
+  const [time, setTime] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  function getFormattedDate() {
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const today = new Date();
+    const day = days[today.getDay()];
+    const date = today.getDate();
+    const month = months[today.getMonth()];
+    const year = today.getFullYear();
+
+    return `${day}, ${date} ${month} ${year}`;
+  }
+
+  // Masukkan hasil ke dalam variabel
+  const todayFormatted = getFormattedDate();
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString("en-US", { hour12: false });
+      setTime(formattedTime);
+      setLoading(false);
+    };
+  
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, []);
+  
+
+  return (
+    <div className="flex items-center justify-between">
+      <div className="font-bold text-xl">{menu}</div>
+      <div className="text-center text-sm">
+        <div>{todayFormatted}</div>
+        <div>{loading ? <Spinner classAdditional={"h-5"}/> : time}</div>
+      </div>
+    </div>
+  );
+};
