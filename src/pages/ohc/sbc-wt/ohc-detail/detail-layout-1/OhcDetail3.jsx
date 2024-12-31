@@ -82,8 +82,8 @@ export const OhcDetail3 = () => {
           <Tab.Panels>
             <Tab.Panel>
               {/* main component */}
-              <div className="grid grid-cols-9 gap-2 mt-4">
-                <div className="col-span-4 bg-white rounded-lg">
+              <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
+                <div className="lg:col-span-4 bg-white rounded-lg">
                   <div className="p-2 text-md font-bold">Layout</div>
                   <img
                     src="https://images.unsplash.com/photo-1647427060118-4911c9821b82"
@@ -92,7 +92,7 @@ export const OhcDetail3 = () => {
                   />
                 </div>
 
-                <div className="col-span-5 grid grid-cols-1 gap-2">
+                <div className="lg:col-span-5 grid grid-cols-1 gap-2">
                   <div className="bg-white rounded-lg py-2 pl-5 pr-2">
                     <div className="text-md font-bold mb-4">
                       History Conditions

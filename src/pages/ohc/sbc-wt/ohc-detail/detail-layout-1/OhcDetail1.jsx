@@ -29,7 +29,7 @@ export const OhcDetail1 = () => {
 
   return (
     <div className="mt-4">
-      <div className="grid grid-cols-7 gap-2 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-7 gap-2 items-center">
         <div className="rounded-lg bg-white px-4 h-full flex items-center justify-center">
           <div
             className={`bg-hijau text-center font-bold text-xl p-2 rounded-lg w-full`}
@@ -41,6 +41,7 @@ export const OhcDetail1 = () => {
 
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
+            to="/ohc-sbc-wt-sp"
             title="Current Location"
             value={"SP-1"}
             backgroundColor="bg-hijau"
@@ -124,7 +125,7 @@ export const OhcDetail1 = () => {
       </div>
 
       {/* line chart & abnormality */}
-      <div className="grid grid-cols-5 gap-2 mt-2">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 mt-2">
         <div className="col-span-2 grid grid-cols-1 gap-2">
           <div className="rounded-lg bg-white w-full h-full p-2">
             <MotorLifterChart
@@ -153,7 +154,9 @@ export const OhcDetail1 = () => {
 
         <div>
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <h2 className="text-2xl font-bold text-center mb-10">Abnormality</h2>
+            <h2 className="text-2xl font-bold text-center mb-10">
+              Abnormality
+            </h2>
             <div>
               {abnormalities?.map((abnormality, index) => (
                 <div key={index} className="grid grid-cols-5 gap-1 mb-2">

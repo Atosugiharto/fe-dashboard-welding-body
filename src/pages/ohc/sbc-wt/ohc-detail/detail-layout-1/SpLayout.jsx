@@ -36,7 +36,9 @@ export const SpLayout = () => {
         <Tab.Group>
           <Tab.List
             as="div"
-            className={"grid grid-cols-8 items-center gap-4 my-2"}
+            className={
+              "grid grid-cols-4 lg:grid-cols-8 items-center gap-4 my-2"
+            }
           >
             {listOhc.map((item) => (
               <Tab
@@ -69,8 +71,8 @@ export const SpLayout = () => {
             <div />
             <div />
             <div />
-            <Tab
-              as="div"
+            <Link
+              to={"/ohc-sbc-wt-sp-fault"}
               // className={({ selected }) =>
               //   classNames(
               //     selected
@@ -83,8 +85,9 @@ export const SpLayout = () => {
                 "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }
             >
-              <Link to={"/ohc-sbc-wt-sp-fault"}>Fault</Link>
-            </Tab>
+              {/* <Link to={"/ohc-sbc-wt-sp-fault"}>Fault</Link> */}
+              Fault
+            </Link>
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>

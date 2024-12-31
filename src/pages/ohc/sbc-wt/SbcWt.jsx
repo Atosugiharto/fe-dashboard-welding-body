@@ -19,7 +19,7 @@ export const SbcWt = () => {
       </div>
 
       <div className="mt-4">
-        <div className="grid grid-cols-9 gap-2 items-center">
+        <div className="grid grid-cols-4 lg:grid-cols-9 gap-2 items-center">
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Running Time"}
@@ -55,18 +55,14 @@ export const SbcWt = () => {
         </div>
 
         <div className="mt-2">
-          <div className="grid grid-cols-8 gap-2">
-            <div className="col-span-5 bg-white rounded-lg p-2">
+          <div className="grid grid-cols-1 lg:grid-cols-8 gap-2">
+            <div className="lg:col-span-5 bg-white rounded-lg p-2">
               <p>Layout</p>
               <div className="mt-4">
-                <img
-                  src={layoutWelding}
-                  alt=""
-                  className="w-full h-auto"
-                />
+                <img src={layoutWelding} alt="" className="w-full h-auto" />
               </div>
             </div>
-            <div className="col-span-3">
+            <div className="lg:col-span-3">
               <div className="bg-white rounded-lg">
                 <div className="grid grid-cols-3 gap-2 items-center p-2 font-bold">
                   <div className="col-span-1">OHC Status</div>
@@ -86,33 +82,39 @@ export const SbcWt = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 items-center mt-2 p-2 font-semibold">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 p-2 font-semibold">
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 1"}
                     backgroundColor={"bg-hijau"}
                     borderColor={"border-hijau"}
                   />
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 2"}
                     backgroundColor={"bg-hijau"}
                     borderColor={"border-hijau"}
                   />
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 3"}
                     backgroundColor={"bg-hijau"}
                     borderColor={"border-hijau"}
                   />
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 4"}
                     backgroundColor={"bg-hijau"}
                     borderColor={"border-kuning"}
                   />
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 5"}
                     backgroundColor={"bg-hijau"}
                     borderColor={"border-hijau"}
                   />
                   <CardOhcDetail
+                    to={"/ohc-sbc-wt-detail1"}
                     title={"OHC 6"}
                     backgroundColor={"bg-merah"}
                     borderColor={"border-merah"}

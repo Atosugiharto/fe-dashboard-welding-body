@@ -2,8 +2,8 @@ import Table from "../../../../../../share-components/Table";
 
 export const SpRepair = () => {
   return (
-    <div className="grid grid-cols-9 gap-2 mt-4">
-      <div className="col-span-4 bg-white rounded-lg">
+    <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
+      <div className="lg:col-span-4 bg-white rounded-lg">
         <div className="p-2 text-md font-bold">Layout</div>
         <div className="flex items-center gap-1">
           <img
@@ -26,10 +26,10 @@ export const SpRepair = () => {
         </div>
       </div>
 
-      <div className="col-span-5 grid grid-cols-1 gap-2">
+      <div className="lg:col-span-5 grid grid-cols-1 gap-2">
         <div className="bg-white rounded-lg py-2 pl-5 pr-2">
           <div className="text-md font-bold mb-4">Current Conditions</div>
-          <Table maxHeight="max-h-96"/>
+          <Table maxHeight="max-h-96" />
         </div>
       </div>
     </div>

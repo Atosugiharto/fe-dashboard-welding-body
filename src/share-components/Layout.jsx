@@ -11,22 +11,43 @@ import { ChevronRightIcon } from "@heroicons/react/20/solid";
 import { Outlet } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import logo from "@src/assets/logo-toyota.svg";
+import { NavLink } from "react-router-dom";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: false },
-  { name: "Under Body", href: "#", icon: Squares2X2Icon, current: false },
-  { name: "Main Body", href: "#", icon: Squares2X2Icon, current: false },
-  { name: "Side Member", href: "#", icon: Squares2X2Icon, current: false },
-  { name: "Shell Body", href: "#", icon: Squares2X2Icon, current: false },
-  { name: "Conveyor", href: "#", icon: Squares2X2Icon, current: false },
+  { name: "Dashboard", href: "dashboard", icon: HomeIcon, current: false },
+  {
+    name: "Under Body",
+    href: "under-body",
+    icon: Squares2X2Icon,
+    current: false,
+  },
+  {
+    name: "Main Body",
+    href: "main-body",
+    icon: Squares2X2Icon,
+    current: false,
+  },
+  {
+    name: "Side Member",
+    href: "side-member",
+    icon: Squares2X2Icon,
+    current: false,
+  },
+  {
+    name: "Shell Body",
+    href: "shell-body",
+    icon: Squares2X2Icon,
+    current: false,
+  },
+  { name: "Conveyor", href: "conveyor", icon: Squares2X2Icon, current: false },
   {
     name: "OHC",
     icon: Squares2X2Icon,
     current: true,
     children: [
-      { name: "UBF - MBT", href: "#", icon: ArrowRightIcon },
-      { name: "MBT - MBR", href: "#", icon: ArrowRightIcon },
-      { name: "MBR - SBC", href: "#", icon: ArrowRightIcon },
+      { name: "UBF - MBT", href: "/ohc-ubf-mbt", icon: ArrowRightIcon },
+      { name: "MBT - MBR", href: "/ohc-mbt-mbr", icon: ArrowRightIcon },
+      { name: "MBR - SBC", href: "/ohc-mbr-sbc", icon: ArrowRightIcon },
       { name: "SBC - WT", href: "/ohc-sbc-wt", icon: ArrowRightIcon },
     ],
   },
@@ -38,6 +59,7 @@ function classNames(...classes) {
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [hideSidebar, sethideSidebar] = useState(false);
 
   return (
     <>
@@ -110,21 +132,23 @@ export default function Example() {
                             {navigation.map((item) => (
                               <li key={item.name}>
                                 {!item.children ? (
-                                  <a
-                                    href={item.href}
-                                    className={classNames(
-                                      item.current
-                                        ? "bg-sidebar"
-                                        : "hover:bg-sidebar",
-                                      "group flex items-center gap-x-3 rounded-md p-2 text-medium text-sm leading-6 text-dongker"
-                                    )}
+                                  <NavLink
+                                    to={item.href}
+                                    className={({ isActive }) =>
+                                      classNames(
+                                        isActive
+                                          ? "bg-sidebar"
+                                          : "hover:bg-sidebar",
+                                        "group flex items-center gap-x-3 rounded-md p-2 text-medium text-sm leading-6 text-dongker"
+                                      )
+                                    }
                                   >
                                     <item.icon
                                       className="h-4 w-4 shrink-0 text-dongker"
                                       aria-hidden="true"
                                     />
                                     {item.name}
-                                  </a>
+                                  </NavLink>
                                 ) : (
                                   <Disclosure as="div">
                                     {({ open }) => (
@@ -159,9 +183,8 @@ export default function Example() {
                                           {item.children.map((subItem) => (
                                             <li key={subItem.name}>
                                               {/* 44px */}
-                                              <Disclosure.Button
-                                                as="a"
-                                                href={subItem.href}
+                                              <NavLink
+                                                to={subItem.href}
                                                 className={classNames(
                                                   subItem.current
                                                     ? "bg-sidebar"
@@ -170,7 +193,7 @@ export default function Example() {
                                                 )}
                                               >
                                                 {subItem.name}
-                                              </Disclosure.Button>
+                                              </NavLink>
                                             </li>
                                           ))}
                                         </Disclosure.Panel>
@@ -192,7 +215,13 @@ export default function Example() {
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
+        <div
+          className={`${
+            hideSidebar
+              ? "hidden lg:hidden"
+              : "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col"
+          } `}
+        >
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-sidebar pb-4">
             <div className="h-16 shrink-0 flex items-center justify-center bg-white py-2 ">
@@ -205,19 +234,21 @@ export default function Example() {
                     {navigation.map((item) => (
                       <li key={item.name}>
                         {!item.children ? (
-                          <a
-                            href={item.href}
-                            className={classNames(
-                              item.current ? "bg-sidebar" : "hover:bg-sidebar",
-                              "group flex items-center gap-x-3 rounded-md p-2 text-medium text-md leading-6 text-dongker"
-                            )}
+                          <NavLink
+                            to={item.href}
+                            className={({ isActive }) =>
+                              classNames(
+                                isActive ? "bg-sidebar" : "hover:bg-sidebar",
+                                "group flex items-center gap-x-3 rounded-md p-2 text-medium text-md leading-6 text-dongker"
+                              )
+                            }
                           >
                             <item.icon
                               className="h-4 w-4 shrink-0 text-dongker"
                               aria-hidden="true"
                             />
                             {item.name}
-                          </a>
+                          </NavLink>
                         ) : (
                           <Disclosure as="div">
                             {({ open }) => (
@@ -249,9 +280,8 @@ export default function Example() {
                                   {item.children.map((subItem) => (
                                     <li key={subItem.name}>
                                       {/* 44px */}
-                                      <Disclosure.Button
-                                        as="a"
-                                        href={subItem.href}
+                                      <NavLink
+                                        to={subItem.href}
                                         className={classNames(
                                           subItem.current
                                             ? "bg-sidebar"
@@ -264,7 +294,7 @@ export default function Example() {
                                           aria-hidden="true"
                                         />
                                         {subItem.name}
-                                      </Disclosure.Button>
+                                      </NavLink>
                                     </li>
                                   ))}
                                 </Disclosure.Panel>
@@ -281,7 +311,11 @@ export default function Example() {
           </div>
         </div>
 
-        <div className="lg:pl-64 bg-sidebar lg:sticky">
+        <div
+          className={`${
+            hideSidebar ? "lg:pl-0" : "lg:pl-64"
+          } bg-sidebar lg:sticky`}
+        >
           <div className="top-0 z-40 flex h-16 shrink-0 items-center gap-x-4  bg-white px-4 sm:gap-x-6 sm:px-6 lg:px-8">
             <button
               type="button"
@@ -290,6 +324,14 @@ export default function Example() {
             >
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="-m-2.5 p-2.5 text-dongker hidden lg:flex"
+              onClick={() => sethideSidebar(!hideSidebar)}
+            >
+              <span className="sr-only">Open sidebar</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
 
             {/* Separator */}
