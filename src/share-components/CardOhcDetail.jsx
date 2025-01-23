@@ -1,6 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-export const CardOhcDetail = ({ to, title, backgroundColor, borderColor }) => {
+export const CardOhcDetail = ({
+  to,
+  title,
+  backgroundColor,
+  borderColor,
+  amp,
+  temp,
+}) => {
   return (
     <Link
       to={to}
@@ -11,14 +18,24 @@ export const CardOhcDetail = ({ to, title, backgroundColor, borderColor }) => {
         <label className="text-xs" htmlFor="ohc1-amp">
           Amp
         </label>
-        <input type="text" className="w-full rounded-lg bg-white p-1 mt-1" />
+        <input
+          value={amp?.toFixed(2)}
+          type="text"
+          readOnly
+          className="w-full rounded-lg bg-white p-1 mt-1"
+        />
       </div>
 
       <div className="mt-2">
         <label className="text-xs" htmlFor="ohc1-temp">
           Temp
         </label>
-        <input type="text" className="w-full rounded-lg bg-white p-1 mt-1" />
+        <input
+          readOnly
+          value={temp?.toFixed(2)}
+          type="text"
+          className="w-full rounded-lg bg-white p-1 mt-1"
+        />
       </div>
     </Link>
   );

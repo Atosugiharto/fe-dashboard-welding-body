@@ -5,27 +5,39 @@ import { Sp1 } from "./sp-detail/Sp1";
 import { Sp7 } from "./sp-detail/Sp7";
 import { Sp8 } from "./sp-detail/Sp8";
 import { SpRepair } from "./sp-detail/SpRepair";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export const SpLayout = () => {
+  const navigate = useNavigate();
   const listOhc = [
     {
       id: 1,
       name: "SP 1",
     },
     {
-      id: 2,
+      id: 7,
       name: "SP 7",
     },
     {
-      id: 3,
+      id: 8,
       name: "SP 8",
     },
+    {
+      id: "repair",
+      name: "Repair",
+    },
   ];
+
+  const handleTabChange = (index) => {
+    const selectedTab = listOhc[index];
+    if (selectedTab) {
+      navigate(`/ohc-sbc-wt-sp/${selectedTab?.id}`);
+    }
+  };
   return (
     <div>
       <div>
@@ -33,7 +45,7 @@ export const SpLayout = () => {
       </div>
 
       <div>
-        <Tab.Group>
+        <Tab.Group onChange={handleTabChange}>
           <Tab.List
             as="div"
             className={
@@ -47,7 +59,11 @@ export const SpLayout = () => {
                 className={({ selected }) =>
                   classNames(
                     selected
-                      ? "bg-dongker text-white"
+                      ? item.id === "repair"
+                        ? "bg-kuning"
+                        : "bg-dongker text-white"
+                      : item.id === "repair"
+                      ? "bg-white hover:bg-kuning"
                       : "bg-white hover:bg-dongker hover:text-white",
                     "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer"
                   )
@@ -56,31 +72,11 @@ export const SpLayout = () => {
                 {item.name}
               </Tab>
             ))}
-            <Tab
-              as="div"
-              key={4}
-              className={({ selected }) =>
-                classNames(
-                  selected ? "bg-kuning" : "bg-white hover:bg-kuning",
-                  "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer"
-                )
-              }
-            >
-              Repair
-            </Tab>
             <div />
             <div />
             <div />
             <Link
               to={"/ohc-sbc-wt-sp-fault"}
-              // className={({ selected }) =>
-              //   classNames(
-              //     selected
-              //       ? "bg-dongker text-white"
-              //       : "bg-white hover:bg-dongker hover:text-white",
-              //     "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer"
-              //   )
-              // }
               className={
                 "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }

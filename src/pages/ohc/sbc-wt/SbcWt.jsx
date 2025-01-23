@@ -2,15 +2,36 @@ import { MenuDate } from "@src/share-components/MenuDate";
 import { CardWithValue } from "@src/share-components/CardWithValue";
 import { CardOhcDetail } from "../../../share-components/CardOhcDetail";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import layoutWelding from "@src/assets/layout-welding.PNG";
+// import layoutWelding from "@src/assets/layout-welding.PNG";
+import Diagram from "./Diagram";
+import { useEffect } from "react";
+import { io } from "socket.io-client";
+import { useDispatch, useSelector } from "react-redux";
+import { setOhcData, setSummary } from "../../../slices/ohcSlice";
 
 export const SbcWt = () => {
-  const warningLogs = [
-    { date: "25/08/24", time: "14:12", message: "OHC 3 High Temp" },
-    { date: "25/08/24", time: "07:10", message: "OHC 5 High Temp" },
-    { date: "24/08/24", time: "15:12", message: "OHC 4 High Temp" },
-    { date: "24/08/24", time: "15:12", message: "E-CAT Fault" },
-  ];
+  const dispatch = useDispatch();
+  const { ohcData, summary, warningLogs } = useSelector((state) => state.ohc);
+
+  useEffect(() => {
+    const socket = io("http://147.93.30.33:8000", {
+      transports: ["websocket", "polling"],
+      withCredentials: true,
+      reconnection: true, // Aktifkan reconnect
+    });
+
+    socket.on("ohcStatus", (data) => {
+      // console.log("Received data:", data);
+      dispatch(setSummary(data?.summary));
+      dispatch(setOhcData(data?.ohcs));
+    });
+
+    // Cleanup saat komponen di-unmount
+    return () => {
+      socket.off("ohcStatus"); // Hapus event listener
+      socket.close(); // Tutup koneksi WebSocket
+    };
+  }, [dispatch]);
 
   return (
     <div>
@@ -23,25 +44,25 @@ export const SbcWt = () => {
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Running Time"}
-            value={100}
+            value={summary?.runningTime}
             unit={"H"}
           />
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Efficiency"}
-            value={99.7}
+            value={summary?.efficiency}
             unit={"%"}
           />
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Stop Time"}
-            value={10}
+            value={summary?.stopTime}
             unit={"H"}
           />
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Performance"}
-            value={83.3}
+            value={summary?.performance}
             unit={"%"}
           />
           <div className="col-span-1 grid grid-cols-1 gap-2">
@@ -59,7 +80,8 @@ export const SbcWt = () => {
             <div className="lg:col-span-5 bg-white rounded-lg p-2">
               <p>Layout</p>
               <div className="mt-4">
-                <img src={layoutWelding} alt="" className="w-full h-auto" />
+                {/* <img src={layoutWelding} alt="" className="w-full h-auto" /> */}
+                <Diagram />
               </div>
             </div>
             <div className="lg:col-span-3">
@@ -83,42 +105,25 @@ export const SbcWt = () => {
                 </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 p-2 font-semibold">
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 1"}
-                    backgroundColor={"bg-hijau"}
-                    borderColor={"border-hijau"}
-                  />
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 2"}
-                    backgroundColor={"bg-hijau"}
-                    borderColor={"border-hijau"}
-                  />
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 3"}
-                    backgroundColor={"bg-hijau"}
-                    borderColor={"border-hijau"}
-                  />
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 4"}
-                    backgroundColor={"bg-hijau"}
-                    borderColor={"border-kuning"}
-                  />
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 5"}
-                    backgroundColor={"bg-hijau"}
-                    borderColor={"border-hijau"}
-                  />
-                  <CardOhcDetail
-                    to={"/ohc-sbc-wt-detail1"}
-                    title={"OHC 6"}
-                    backgroundColor={"bg-merah"}
-                    borderColor={"border-merah"}
-                  />
+                  {ohcData?.map((ohc) => (
+                    <CardOhcDetail
+                      key={ohc.id}
+                      to={`/ohc-sbc-wt-detail/${ohc.id}`}
+                      title={`OHC ${ohc?.id}`}
+                      amp={ohc?.tempMotorLifter}
+                      temp={ohc?.tempMotorTransfer}
+                      backgroundColor={
+                        ohc?.status === "NG" ? "bg-merah" : "bg-hijau"
+                      }
+                      borderColor={
+                        ohc?.status === "NG"
+                          ? "border-merah"
+                          : ohc?.status === "Repair"
+                          ? "border-kuning"
+                          : "border-hijau"
+                      }
+                    />
+                  ))}
                 </div>
               </div>
               <div className="mt-2">

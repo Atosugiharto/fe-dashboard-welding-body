@@ -1,4 +1,7 @@
 import Table from "../../../../../../share-components/Table";
+import sp_repair_1 from "@src/assets/sp-repair-1.PNG";
+import sp_repair_2 from "@src/assets/sp-repair-2.PNG";
+import sp_repair_3 from "@src/assets/sp-repair-3.PNG";
 
 export const SpRepair = () => {
   return (
@@ -7,19 +10,19 @@ export const SpRepair = () => {
         <div className="p-2 text-md font-bold">Layout</div>
         <div className="flex items-center gap-1">
           <img
-            src="https://images.unsplash.com/photo-1647427060118-4911c9821b82"
+            src={sp_repair_1}
             alt=""
             className="w-full rounded-lg h-32 object-cover"
           />
           <img
-            src="https://images.unsplash.com/photo-1731397978688-05b1f71790be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzh8fHdlbGRpbmclMjBtYWNoaW5lfGVufDB8fDB8fHww"
+            src={sp_repair_2}
             alt=""
             className="w-full rounded-lg h-32 object-cover"
           />
         </div>
         <div>
           <img
-            src="https://images.unsplash.com/photo-1730584475795-f0be0efd606e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Njd8fHdlbGRpbmclMjBtYWNoaW5lfGVufDB8fDB8fHww"
+            src={sp_repair_3}
             alt=""
             className="w-full rounded-lg mt-2 mb-4"
           />

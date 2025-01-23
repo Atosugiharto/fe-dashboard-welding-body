@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import {
@@ -6,12 +8,14 @@ import {
   Squares2X2Icon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { HomeIcon as HomeIconSolid } from "@heroicons/react/24/solid";
 import { Disclosure } from "@headlessui/react";
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import logo from "@src/assets/logo-toyota.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const navigation = [
   { name: "Dashboard", href: "dashboard", icon: HomeIcon, current: false },
@@ -58,8 +62,15 @@ function classNames(...classes) {
 }
 
 export default function Example() {
+  // const location = useLocation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [hideSidebar, sethideSidebar] = useState(false);
+  const [hideSidebar, sethideSidebar] = useState(true);
+
+  // useEffect(() => {
+  //   if (location.pathname === "/ohc-sbc-wt") {
+  //     sethideSidebar(true);
+  //   }
+  // }, []);
 
   return (
     <>
@@ -325,14 +336,20 @@ export default function Example() {
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-4 w-4" aria-hidden="true" />
             </button>
-            <button
-              type="button"
-              className="-m-2.5 p-2.5 text-dongker hidden lg:flex"
-              onClick={() => sethideSidebar(!hideSidebar)}
-            >
+            <div className="-m-2.5 p-2.5 text-dongker hidden lg:flex lg:items-center lg:gap-x-2">
               <span className="sr-only">Open sidebar</span>
-              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-            </button>
+              {hideSidebar && (
+                <Link to={"/ohc-sbc-wt"} className="cursor-pointer">
+                  <HomeIconSolid className="h-6 w-6" aria-hidden="true" />
+                </Link>
+              )}
+              <button
+                onClick={() => sethideSidebar(!hideSidebar)}
+                type="button"
+              >
+                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+              </button>
+            </div>
 
             {/* Separator */}
             <div

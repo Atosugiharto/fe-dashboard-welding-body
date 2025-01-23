@@ -32,10 +32,20 @@ function App() {
             <Route path="ohc-mbt-mbr" element={<MbtMbr />} />
             <Route path="ohc-mbr-sbc" element={<MbrSbc />} />
             <Route path="ohc-sbc-wt" element={<SbcWt />} />
-            <Route path="ohc-sbc-wt-detail1" element={<OhcDetail />} />
-            <Route path="ohc-sbc-wt-detail2" element={<OhcDetail2 />} />
-            <Route path="ohc-sbc-wt-detail3" element={<OhcDetail3 />} />
-            <Route path="ohc-sbc-wt-sp" element={<SpLayout />} />
+            {/* <Route path="ohc-sbc-wt-detail1" element={<OhcDetail />} /> */}
+            <Route
+              path="/ohc-sbc-wt-detail/:elementId"
+              element={<OhcDetail />}
+            />
+            <Route
+              path="ohc-sbc-wt-detail-cycle/:id"
+              element={<OhcDetail2 />}
+            />
+            <Route
+              path="ohc-sbc-wt-detail-history/:id"
+              element={<OhcDetail3 />}
+            />
+            <Route path="ohc-sbc-wt-sp/:id" element={<SpLayout />} />
             <Route path="ohc-sbc-wt-sp-fault" element={<SpFault />} />
           </Route>
         </Routes>

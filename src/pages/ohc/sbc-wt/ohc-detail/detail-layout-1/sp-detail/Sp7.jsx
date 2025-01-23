@@ -1,23 +1,24 @@
 import Table from "../../../../../../share-components/Table";
+import TableOhcCycleCondition from "../../../../../../share-components/TableOhcCycleCondition";
+import { useSpSocket } from "../../../../../../share-components/useSpSocket";
+import sp7_1 from "@src/assets/sp7-1.PNG";
+import sp7_2 from "@src/assets/sp7-2.PNG";
 
 export const Sp7 = () => {
+  const { spData, id } = useSpSocket();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
       <div className="lg:col-span-4 bg-white rounded-lg">
         <div className="p-2 text-md font-bold">Layout</div>
         <div>
           <img
-            src="https://images.unsplash.com/photo-1647427060118-4911c9821b82"
+            src={sp7_1}
             alt=""
             className="w-full rounded-lg h-32 object-cover"
           />
         </div>
         <div>
-          <img
-            src="https://images.unsplash.com/photo-1530191601183-4de2969575ad?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fHdlbGRpbmclMjBtYWNoaW5lfGVufDB8fDB8fHww"
-            alt=""
-            className="w-full rounded-lg mt-2 mb-4"
-          />
+          <img src={sp7_2} alt="" className="w-full rounded-lg mt-2 mb-4" />
         </div>
       </div>
 
@@ -29,7 +30,7 @@ export const Sp7 = () => {
 
         <div className="bg-white rounded-lg py-2 pl-5 pr-2">
           <div className="text-md font-bold mb-4">Cycle Time</div>
-          <Table />
+          <TableOhcCycleCondition data={spData[id]?.cycle?.cycleDescription} />
         </div>
       </div>
     </div>

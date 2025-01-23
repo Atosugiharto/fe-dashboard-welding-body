@@ -1,39 +1,82 @@
 /* eslint-disable react/jsx-key */
 import { MenuDate } from "@src/share-components/MenuDate";
 import { Tab } from "@headlessui/react";
-import Table from "../../../../../share-components/Table";
+import { OhcCurrentCycle } from "./OhcCurrentCycle";
+import { Link, useNavigate } from "react-router-dom";
+import { useOhcSocket } from "../../../../../share-components/useOhcSocket";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export const OhcDetail2 = () => {
+  const navigate = useNavigate();
+  const { ohcData, id } = useOhcSocket();
+
   const listOhc = [
     {
       id: 1,
       name: "OHC 1",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
     {
       id: 2,
       name: "OHC 2",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
     {
       id: 3,
       name: "OHC 3",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
     {
       id: 4,
       name: "OHC 4",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
     {
       id: 5,
       name: "OHC 5",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
     {
       id: 6,
       name: "OHC 6",
+      component: (
+        <OhcCurrentCycle
+          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+        />
+      ),
     },
   ];
+
+  const handleTabChange = (index) => {
+    const selectedTab = listOhc[index];
+    if (selectedTab) {
+      navigate(`/ohc-sbc-wt-detail-cycle/${selectedTab.id}`);
+    }
+  };
+
   return (
     <div>
       <div>
@@ -41,7 +84,7 @@ export const OhcDetail2 = () => {
       </div>
 
       <div>
-        <Tab.Group>
+        <Tab.Group onChange={handleTabChange}>
           <Tab.List
             as="div"
             className={"flex items-center justify-between gap-4 my-2"}
@@ -62,51 +105,20 @@ export const OhcDetail2 = () => {
                 {item.name}
               </Tab>
             ))}
-            <Tab
+            <Link
+              to="/ohc-sbc-wt-detail-history/1"
               as="div"
-              // className={({ selected }) =>
-              //   classNames(
-              //     selected
-              //       ? "bg-dongker text-white"
-              //       : "bg-white hover:bg-dongker hover:text-white",
-              //     "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer"
-              //   )
-              // }
               className={
                 "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }
             >
               Next
-            </Tab>
+            </Link>
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel>
-              {/* main component */}
-              <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
-                <div className="lg:col-span-4 bg-white rounded-lg">
-                  <div className="p-2 text-md font-bold">Layout</div>
-                  <img
-                    src="https://images.unsplash.com/photo-1647427060118-4911c9821b82"
-                    alt=""
-                    className="w-full rounded-lg mt-2 mb-4"
-                  />
-                </div>
-
-                <div className="lg:col-span-5 grid grid-cols-1 gap-2">
-                  <div className="bg-white rounded-lg py-2 pl-5 pr-2">
-                    <div className="text-md font-bold mb-4">
-                      Current Conditions
-                    </div>
-                    <Table />
-                  </div>
-
-                  <div className="bg-white rounded-lg py-2 pl-5 pr-2">
-                    <div className="text-md font-bold mb-4">Cycle Time</div>
-                    <Table />
-                  </div>
-                </div>
-              </div>
-            </Tab.Panel>
+            {listOhc.map((item) => (
+              <Tab.Panel key={item.id}>{item.component}</Tab.Panel>
+            ))}
           </Tab.Panels>
         </Tab.Group>
       </div>

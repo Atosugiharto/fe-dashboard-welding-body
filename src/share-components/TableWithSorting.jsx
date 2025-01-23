@@ -12,6 +12,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX70C",
+      error: 0,
       description: "Down End 1",
     },
     {
@@ -20,6 +21,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX709",
+      error: 0,
       description: "Upper End 1",
     },
     {
@@ -28,6 +30,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX702",
+      error: 0,
       description: "Chain Over Run",
     },
     {
@@ -36,6 +39,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX701",
+      error: 0,
       description: "Close Hanger Arm",
     },
     {
@@ -44,6 +48,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX70C",
+      error: 0,
       description: "Open Hanger Arm",
     },
     {
@@ -52,6 +57,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX709",
+      error: 0,
       description: "Upper End 1",
     },
     {
@@ -60,6 +66,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX702",
+      error: 0,
       description: "Chain Over Run",
     },
     {
@@ -68,6 +75,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX701",
+      error: 0,
       description: "Close Hanger Arm",
     },
     {
@@ -76,6 +84,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX70C",
+      error: 0,
       description: "Down End 1",
     },
     {
@@ -84,6 +93,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX709",
+      error: 0,
       description: "Upper End 1",
     },
     {
@@ -92,6 +102,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX709",
+      error: 0,
       description: "High Temperature",
     },
     {
@@ -100,6 +111,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX704",
+      error: 0,
       description: "Voltage",
     },
     {
@@ -108,6 +120,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX705",
+      error: 0,
       description: "Body Double",
     },
     {
@@ -116,6 +129,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX706",
+      error: 0,
       description: "E/CAT",
     },
     {
@@ -124,6 +138,7 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       month: "October",
       year: 2024,
       id: "LSX70D",
+      error: 0,
       description: "EIP",
     },
   ];
@@ -148,36 +163,59 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
       <table className="table-auto w-full border-collapse border-2 border-dongker text-center">
         <thead className="bg-dongker text-white">
           <tr>
-            {["No", "Date", "Month", "Years", "ID", "Descriptions"].map(
-              (header, index) => (
-                <th
-                  key={index}
-                  onClick={() => handleSort(header.toLowerCase())}
-                  className="px-2 cursor-pointer"
-                >
-                  {header}
-                  <span className="ml-2 text-xs pt-0.5 pb-1.5 bg-tombol-abu-tua text-tulisan-tombol-abu-tua">
-                    {sortConfig.key === header.toLowerCase()
-                      ? sortConfig.direction === "asc"
-                        ? <PlayArrowOutlined className="h-6 w-auto -rotate-90" />
-                        : <PlayArrowOutlined className="h-6 w-auto rotate-90" />
-                      : <SwapVert className="h-5 w-auto" />}
-                  </span>
-                </th>
-              )
-            )}
+            {[
+              "No",
+              "Date",
+              "Month",
+              "Years",
+              "ID",
+              "Descriptions",
+              "Error",
+            ].map((header, index) => (
+              <th
+                key={index}
+                onClick={() => handleSort(header.toLowerCase())}
+                className="px-2 cursor-pointer"
+              >
+                {header}
+                <span className="ml-2 text-xs pt-0.5 pb-1.5 bg-tombol-abu-tua text-tulisan-tombol-abu-tua">
+                  {sortConfig.key === header.toLowerCase() ? (
+                    sortConfig.direction === "asc" ? (
+                      <PlayArrowOutlined className="h-6 w-auto -rotate-90" />
+                    ) : (
+                      <PlayArrowOutlined className="h-6 w-auto rotate-90" />
+                    )
+                  ) : (
+                    <SwapVert className="h-5 w-auto" />
+                  )}
+                </span>
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
           {sortedData.map((row) => (
             <tr key={row.no} className="">
-              <td className="border-x-2 border-dongker px-1 py-0.5">{row.no}</td>
-              <td className="border-x-2 border-dongker px-1 py-0.5">{row.date}</td>
-              <td className="border-x-2 border-dongker px-1 py-0.5">{row.month}</td>
-              <td className="border-x-2 border-dongker px-1 py-0.5">{row.year}</td>
-              <td className="border-x-2 border-dongker px-1 py-0.5">{row.id}</td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.no}
+              </td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.date}
+              </td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.month}
+              </td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.year}
+              </td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.id}
+              </td>
               <td className="border-x-2 border-dongker px-1 py-0.5 text-left">
                 {row.description}
+              </td>
+              <td className="border-x-2 border-dongker px-1 py-0.5">
+                {row.error}
               </td>
             </tr>
           ))}

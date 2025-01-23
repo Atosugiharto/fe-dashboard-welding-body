@@ -1,75 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const Table = ({ maxHeight = "max-h-64" }) => {
+const TableOhcCycleCondition = ({ maxHeight = "max-h-64", data = [] }) => {
   const navigate = useNavigate();
-  const data = [
-    {
-      no: 1,
-      id: "LSX70C",
-      description: "Down End 1",
-      actual: 150,
-      standard: 100,
-      re: "NG",
-    },
-    {
-      no: 2,
-      id: "LSX709",
-      description: "Upper End 1",
-      actual: 100,
-      standard: 200,
-      re: "OK",
-    },
-    {
-      no: 3,
-      id: "LSX702",
-      description: "Chain Over Run",
-      actual: 150,
-      standard: 200,
-      re: "OK",
-    },
-    {
-      no: 4,
-      id: "LSX701",
-      description: "Clean Hanger Arm",
-      actual: 150,
-      standard: 100,
-      re: "NG",
-    },
-    {
-      no: 5,
-      id: "LSX70C",
-      description: "Open Hanger Arm",
-      actual: 100,
-      standard: 200,
-      re: "OK",
-    },
-    {
-      no: 6,
-      id: "LSX709",
-      description: "Upper End 1",
-      actual: 100,
-      standard: 200,
-      re: "OK",
-    },
-    {
-      no: 7,
-      id: "LSX702",
-      description: "Chain Over Run",
-      actual: 100,
-      standard: 200,
-      re: "OK",
-    },
-    {
-      no: 8,
-      id: "LSX701",
-      description: "Close Hanger Arm",
-      actual: 150,
-      standard: 100,
-      re: "NG",
-    },
-  ];
-
   return (
     <div
       className={`flex overflow-x-auto text-sm gap-1 overflow-y-auto ${maxHeight}`}
@@ -88,33 +21,38 @@ const Table = ({ maxHeight = "max-h-64" }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map((row, index) => (
+            {data.length === 0 && (
+              <tr>
+                <td colSpan={6} className="text-center">
+                  No Data Found
+                </td>
+              </tr>
+            )}
+            {data?.map((row, index) => (
               <tr
                 key={index}
-                className={`${
-                  row.re === "NG" ? "bg-red-500 cursor-pointer" : ""
-                }`}
+                className={`${row.re === "NG" ? "bg-red-500" : ""}`}
                 onClick={() =>
-                  row.re === "NG" && navigate(`/ohc-sbc-wt-sp-fault`)
+                  row.re === "NG" && navigate(`/ohc-sbc-wt-sp/fault`)
                 }
               >
                 <td className="border-x-2 border-dongker px-1 py-0.5">
-                  {row.no}
+                  {index + 1}
                 </td>
                 <td className="border-x-2 border-dongker px-1 py-0.5">
-                  {row.id}
+                  {row?.cycleId}
                 </td>
                 <td className="border-x-2 border-dongker px-1 py-0.5 text-left">
-                  {row.description}
+                  {row?.name}
                 </td>
                 <td className="border-x-2 border-dongker px-1 py-0.5">
-                  {row.actual}
+                  {row?.actualValue}
                 </td>
                 <td className="border-x-2 border-dongker px-1 py-0.5">
-                  {row.standard}
+                  {row?.standardValue}
                 </td>
                 <td className="border-x-2 border-dongker px-1 py-0.5">
-                  {row.re}
+                  {/* {row?.re} */}OK
                 </td>
               </tr>
             ))}
@@ -142,4 +80,4 @@ const Table = ({ maxHeight = "max-h-64" }) => {
   );
 };
 
-export default Table;
+export default TableOhcCycleCondition;
