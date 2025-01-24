@@ -9,7 +9,6 @@ import { useOhcSocket } from "@src/share-components/useOhcSocket";
 
 export const OhcDetail1 = () => {
   const { ohcData } = useOhcSocket();
-  // console.log(ohcData, "ohc");
   const { elementId } = useParams();
   const selectedData = ohcData?.find((data) => data.name === elementId);
 
@@ -173,7 +172,7 @@ export const OhcDetail1 = () => {
                     {abnormality?.label}
                   </div>
 
-                  <div className="col-span-2 px-2 py-4 bg-tombol-abu-tua rounded-md font-bold text-center text-5xl ">
+                  <div className="col-span-2 px-2 py-4 bg-tombol-abu-tua rounded-md font-bold text-center text-4xl ">
                     {abnormality?.value}
                   </div>
                 </div>

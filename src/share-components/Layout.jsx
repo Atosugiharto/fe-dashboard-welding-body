@@ -16,6 +16,8 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import logo from "@src/assets/logo-toyota.svg";
 import { NavLink, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { closeSidebar } from "../slices/sidebarSlice";
 
 const navigation = [
   { name: "Dashboard", href: "dashboard", icon: HomeIcon, current: false },
@@ -61,16 +63,18 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
-  // const location = useLocation();
+export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [hideSidebar, sethideSidebar] = useState(true);
+  const hideSidebar = useSelector((state) => state.sidebar.hideSidebar);
+  const location = useLocation();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (location.pathname === "/ohc-sbc-wt") {
-  //     sethideSidebar(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    // Cek apakah path saat ini mengandung '/ohc-sbc-wt-detail/OHC'
+    if (location.pathname.includes("/ohc-sbc-wt-detail/")) {
+      dispatch(closeSidebar());
+    }
+  }, [location, dispatch]);
 
   return (
     <>
@@ -336,19 +340,13 @@ export default function Example() {
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-4 w-4" aria-hidden="true" />
             </button>
-            <div className="-m-2.5 p-2.5 text-dongker hidden lg:flex lg:items-center lg:gap-x-2">
-              <span className="sr-only">Open sidebar</span>
-              {/* {hideSidebar && (
-                <Link to={"/ohc-sbc-wt"} className="cursor-pointer">
-                  <HomeIconSolid className="h-6 w-6" aria-hidden="true" />
-                </Link>
-              )} */}
-              <button
-                onClick={() => sethideSidebar(!hideSidebar)}
-                type="button"
-              >
-                <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-              </button>
+            <div className="ml-5 p-2.5 text-dongker hidden lg:flex lg:items-center lg:gap-x-2">
+              <span className="sr-only">Logo</span>
+              <img
+                className={`${!hideSidebar && "hidden"} h-8 w-auto`}
+                src={logo}
+                alt="Toyota Indonesia"
+              />
             </div>
 
             {/* Separator */}
