@@ -338,11 +338,11 @@ export default function Example() {
             </button>
             <div className="-m-2.5 p-2.5 text-dongker hidden lg:flex lg:items-center lg:gap-x-2">
               <span className="sr-only">Open sidebar</span>
-              {hideSidebar && (
+              {/* {hideSidebar && (
                 <Link to={"/ohc-sbc-wt"} className="cursor-pointer">
                   <HomeIconSolid className="h-6 w-6" aria-hidden="true" />
                 </Link>
-              )}
+              )} */}
               <button
                 onClick={() => sethideSidebar(!hideSidebar)}
                 type="button"

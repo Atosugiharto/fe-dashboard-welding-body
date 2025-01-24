@@ -1,8 +1,14 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
+import { HomeIcon } from "@heroicons/react/24/solid";
+import { Link } from "react-router-dom";
 
-export const MenuDate = ({ menu }) => {
+export const MenuDate = ({
+  menu,
+  href = "/ohc-sbc-wt",
+  icon = <HomeIcon className="h-6 w-6" />,
+}) => {
   const [time, setTime] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -41,18 +47,20 @@ export const MenuDate = ({ menu }) => {
       setTime(formattedTime);
       setLoading(false);
     };
-  
+
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, []);
-  
 
   return (
     <div className="flex items-center justify-between">
-      <div className="font-bold text-xl">{menu}</div>
+      <div className="font-bold text-xl flex items-center gap-2">
+        <Link to={href}>{icon}</Link>
+        <div>{menu}</div>
+      </div>
       <div className="text-center text-sm">
         <div>{todayFormatted}</div>
-        <div>{loading ? <Spinner classAdditional={"h-5"}/> : time}</div>
+        <div>{loading ? <Spinner classAdditional={"h-5"} /> : time}</div>
       </div>
     </div>
   );

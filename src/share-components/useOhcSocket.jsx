@@ -35,7 +35,6 @@ export const useOhcSocket = () => {
       }
     };
 
-    fetchDataFromApi();
     // Event listener untuk menerima data dari socket
     socket.on("ohcStatus", (data) => {
       dispatch(setOhcData(data?.ohcs)); // Update data ke Redux
