@@ -1,9 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
 const Table = ({ maxHeight = "max-h-64" }) => {
   const navigate = useNavigate();
-  const data = [
+  const [data, setData] = useState([
     {
       no: 1,
       id: "LSX70C",
@@ -68,7 +69,18 @@ const Table = ({ maxHeight = "max-h-64" }) => {
       standard: 100,
       re: "NG",
     },
-  ];
+  ]);
+
+  // Fungsi untuk mereset status "NG" menjadi "OK"
+  const handleReset = (index) => {
+    const updatedData = data.map((row, i) => {
+      if (i === index) {
+        return { ...row, re: "OK" }; // Ubah status "NG" menjadi "OK"
+      }
+      return row;
+    });
+    setData(updatedData);
+  };
 
   return (
     <div
@@ -133,6 +145,7 @@ const Table = ({ maxHeight = "max-h-64" }) => {
                 ? "bg-black text-white"
                 : "bg-tombol-abu-tua text-tulisan-tombol-abu-tua"
             }`}
+            onClick={() => handleReset(index)}
           >
             Rst
           </button>
