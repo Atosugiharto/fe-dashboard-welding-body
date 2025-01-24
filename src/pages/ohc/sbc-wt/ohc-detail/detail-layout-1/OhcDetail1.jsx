@@ -17,22 +17,22 @@ export const OhcDetail1 = () => {
     {
       id: 1,
       label: "Current Motor Lifter",
-      value: 0,
+      value: selectedData?.currentMotorLifter,
     },
     {
       id: 2,
       label: "Current Motor Transfer",
-      value: 0,
+      value: selectedData?.currentMotorTransfer,
     },
     {
       id: 3,
-      label: "Current Motor Lifter",
-      value: 0,
+      label: "Temperature Motor Lifter",
+      value: selectedData?.tempMotorLifter,
     },
     {
       id: 4,
-      label: "Current Motor Transfer",
-      value: 0,
+      label: "Temperature Motor Transfer",
+      value: selectedData?.tempMotorTransfer,
     },
   ];
 
@@ -106,13 +106,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Current Motor Lifter/h"
-            value={selectedData?.currentMotorLifter.toFixed(3)}
+            value={selectedData?.currentMotorLifter}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Current Motor Transfer/h"
-            value={selectedData?.currentMotorTransfer.toFixed(3)}
+            value={selectedData?.currentMotorTransfer}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
@@ -120,13 +120,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Temp. Motor Lifter/h"
-            value={selectedData?.tempMotorLifter.toFixed(3)}
+            value={selectedData?.tempMotorLifter}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Temp Motor Trans/h"
-            value={selectedData?.tempMotorTransfer.toFixed(3)}
+            value={selectedData?.tempMotorTransfer}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />
@@ -168,12 +168,12 @@ export const OhcDetail1 = () => {
             </h2>
             <div>
               {abnormalities?.map((abnormality, index) => (
-                <div key={index} className="grid grid-cols-5 gap-1 mb-2">
-                  <div className="col-span-3 px-1 py-2 bg-tombol-abu-tua rounded-md text-center font-bold flex items-center">
+                <div key={index} className="grid grid-cols-5 gap-1 mb-4">
+                  <div className="col-span-3 px-2 py-4 bg-tombol-abu-tua rounded-md text-center font-bold flex items-center">
                     {abnormality?.label}
                   </div>
 
-                  <div className="col-span-2 px-1 py-2 bg-tombol-abu-tua rounded-md font-bold text-center text-7xl ">
+                  <div className="col-span-2 px-2 py-4 bg-tombol-abu-tua rounded-md font-bold text-center text-5xl ">
                     {abnormality?.value}
                   </div>
                 </div>
