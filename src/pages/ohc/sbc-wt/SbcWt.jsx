@@ -2,36 +2,13 @@ import { MenuDate } from "@src/share-components/MenuDate";
 import { CardWithValue } from "@src/share-components/CardWithValue";
 import { CardOhcDetail } from "../../../share-components/CardOhcDetail";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-// import layoutWelding from "@src/assets/layout-welding.PNG";
 import Diagram from "./Diagram";
-import { useEffect } from "react";
-import { io } from "socket.io-client";
-import { useDispatch, useSelector } from "react-redux";
-import { setOhcData, setSummary } from "../../../slices/ohcSlice";
+import { useSelector } from "react-redux";
+import { useOhcSocket } from "@src/share-components/useOhcSocket";
 
 export const SbcWt = () => {
-  const dispatch = useDispatch();
-  const { ohcData, summary, warningLogs } = useSelector((state) => state.ohc);
-
-  useEffect(() => {
-    const socket = io("http://147.93.30.33:8000", {
-      transports: ["websocket", "polling"],
-      withCredentials: true,
-      reconnection: true, // Aktifkan reconnect
-    });
-
-    socket.on("ohcStatus", (data) => {
-      // console.log("Received data:", data);
-      dispatch(setSummary(data?.summary));
-      dispatch(setOhcData(data?.ohcs));
-    });
-
-    // Cleanup saat komponen di-unmount
-    return () => {
-      socket.off("ohcStatus"); // Hapus event listener
-      socket.close(); // Tutup koneksi WebSocket
-    };
-  }, [dispatch]);
+  const { warningLogs } = useSelector((state) => state.ohc);
+  const { ohcData, summary } = useOhcSocket();
 
   return (
     <div>
@@ -80,7 +57,6 @@ export const SbcWt = () => {
             <div className="lg:col-span-5 bg-white rounded-lg p-2">
               <p>Layout</p>
               <div className="mt-4">
-                {/* <img src={layoutWelding} alt="" className="w-full h-auto" /> */}
                 <Diagram />
               </div>
             </div>
@@ -108,7 +84,7 @@ export const SbcWt = () => {
                   {ohcData?.map((ohc) => (
                     <CardOhcDetail
                       key={ohc.id}
-                      to={`/ohc-sbc-wt-detail/${ohc.id}`}
+                      to={`/ohc-sbc-wt-detail/${ohc.name}`}
                       title={`OHC ${ohc?.id}`}
                       amp={ohc?.tempMotorLifter}
                       temp={ohc?.tempMotorTransfer}

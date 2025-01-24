@@ -1,12 +1,10 @@
 /* eslint-disable no-unused-vars */
-// import { PlayArrowOutlined, CarRepair } from "@mui/icons-material";
 import layoutDiagram from "@src/assets/layout-welding.PNG";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-// import bracketIcon from "@src/assets/bracket-icon.svg";
+import { useOhcSocket } from "@src/share-components/useOhcSocket";
 
 const Diagram = () => {
-  const { ohcData } = useSelector((state) => state.ohc);
+  const { spData } = useOhcSocket();
   const [ohcsInSP1, setOhcsInSP1] = useState([]);
   const [ohcsInSP2, setOhcsInSP2] = useState([]);
   const [ohcsInSP3, setOhcsInSP3] = useState([]);
@@ -21,53 +19,65 @@ const Diagram = () => {
   const [ohcsInSP11, setOhcsInSP11] = useState([]);
 
   useEffect(() => {
-    const ohcsInSP1 = ohcData
-      ?.filter((ohc) => ohc.location === "SP1")
-      .map((ohc) => ohc.id);
+    const ohcsInSP1 = spData
+      ?.filter((sp) => sp?.name === "SP1")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP2 = ohcData
-      ?.filter((ohc) => ohc.location === "SP2")
-      .map((ohc) => ohc.id);
+    const ohcsInSP2 = spData
+      ?.filter((sp) => sp?.name === "SP2")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP3 = ohcData
-      ?.filter((ohc) => ohc.location === "SP3")
-      .map((ohc) => ohc.id);
+    const ohcsInSP3 = spData
+      ?.filter((sp) => sp?.name === "SP3")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP4 = ohcData
-      ?.filter((ohc) => ohc.location === "SP4")
-      .map((ohc) => ohc.id);
+    const ohcsInSP4 = spData
+      ?.filter((sp) => sp?.name === "SP4")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP5 = ohcData
-      ?.filter((ohc) => ohc.location === "SP5")
-      .map((ohc) => ohc.id);
+    const ohcsInSP5 = spData
+      ?.filter((sp) => sp?.name === "SP5")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP6 = ohcData
-      ?.filter((ohc) => ohc.location === "SP6")
-      .map((ohc) => ohc.id);
+    const ohcsInSP6 = spData
+      ?.filter((sp) => sp?.name === "SP6")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP7 = ohcData
-      ?.filter((ohc) => ohc.location === "SP7")
-      .map((ohc) => ohc.id);
+    const ohcsInSP7 = spData
+      ?.filter((sp) => sp?.name === "SP7")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP8 = ohcData
-      ?.filter((ohc) => ohc.location === "SP8")
-      .map((ohc) => ohc.id);
+    const ohcsInSP8 = spData
+      ?.filter((sp) => sp?.name === "SP8")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP8C = ohcData
-      ?.filter((ohc) => ohc.location === "SP8C")
-      .map((ohc) => ohc.id);
+    const ohcsInSP8C = spData
+      ?.filter((sp) => sp?.name === "SP8C")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP9 = ohcData
-      ?.filter((ohc) => ohc.location === "SP9")
-      .map((ohc) => ohc.id);
+    const ohcsInSP9 = spData
+      ?.filter((sp) => sp?.name === "SP9")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP10 = ohcData
-      ?.filter((ohc) => ohc.location === "SP10")
-      .map((ohc) => ohc.id);
+    const ohcsInSP10 = spData
+      ?.filter((sp) => sp?.name === "SP10")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
-    const ohcsInSP11 = ohcData
-      ?.filter((ohc) => ohc.location === "SP11")
-      .map((ohc) => ohc.id);
+    const ohcsInSP11 = spData
+      ?.filter((sp) => sp?.name === "SP11")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
 
     setOhcsInSP1(ohcsInSP1);
     setOhcsInSP2(ohcsInSP2);
@@ -81,9 +91,9 @@ const Diagram = () => {
     setOhcsInSP9(ohcsInSP9);
     setOhcsInSP10(ohcsInSP10);
     setOhcsInSP11(ohcsInSP11);
-  }, [ohcData]);
+  }, [spData]);
 
-  const spData = [
+  const spDatas = [
     {
       label: "SP1",
       value: ohcsInSP1 ? ohcsInSP1.join(", ") : "-",
@@ -161,7 +171,7 @@ const Diagram = () => {
   return (
     <div className="relative w-full">
       <img src={layoutDiagram} alt="Diagram" className="w-full" />
-      {spData?.map((sp, index) => (
+      {spDatas?.map((sp, index) => (
         <div
           key={index}
           className={`absolute text-[4px] md:text-xs ${sp?.position}`}

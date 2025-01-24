@@ -2,7 +2,7 @@
 import { MenuDate } from "../../../../share-components/MenuDate";
 import { Tab } from "@headlessui/react";
 import { OhcDetail1 } from "./detail-layout-1/OhcDetail1";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -12,32 +12,32 @@ export const OhcDetail = () => {
   const navigate = useNavigate();
   const listOhc = [
     {
-      id: 1,
+      id: "OHC1",
       elemenId: "1",
       name: "OHC 1",
     },
     {
-      id: 2,
+      id: "OHC2",
       elemenId: "2",
       name: "OHC 2",
     },
     {
-      id: 3,
+      id: "OHC3",
       elemenId: "3",
       name: "OHC 3",
     },
     {
-      id: 4,
+      id: "OHC4",
       elemenId: "4",
       name: "OHC 4",
     },
     {
-      id: 5,
+      id: "OHC5",
       elemenId: "5",
       name: "OHC 5",
     },
     {
-      id: 6,
+      id: "OHC6",
       elemenId: "6",
       name: "OHC 6",
     },
@@ -46,7 +46,7 @@ export const OhcDetail = () => {
   const handleTabChange = (index) => {
     const selectedTab = listOhc[index];
     if (selectedTab) {
-      navigate(`/ohc-sbc-wt-detail/${selectedTab.elemenId}`);
+      navigate(`/ohc-sbc-wt-detail/${selectedTab.id}`);
     }
   };
   return (
@@ -77,19 +77,20 @@ export const OhcDetail = () => {
                 {item.name}
               </Tab>
             ))}
-            <Tab
+            <Link
               as="div"
+              to="/ohc-sbc-wt-detail-cycle/OHC1"
               className={
                 "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }
             >
               Next
-            </Tab>
+            </Link>
           </Tab.List>
           <Tab.Panels>
             {listOhc.map((item, index) => (
               <Tab.Panel key={index}>
-                <OhcDetail1 elementId={item.elemenId} />
+                <OhcDetail1 elementId={item.id} />
               </Tab.Panel>
             ))}
           </Tab.Panels>

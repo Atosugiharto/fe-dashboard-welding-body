@@ -12,59 +12,60 @@ function classNames(...classes) {
 export const OhcDetail2 = () => {
   const navigate = useNavigate();
   const { ohcData, id } = useOhcSocket();
+  const selectedData = ohcData?.find((data) => data.name === id);
 
   const listOhc = [
     {
-      id: 1,
+      id: "OHC1",
       name: "OHC 1",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
     {
-      id: 2,
+      id: "OHC2",
       name: "OHC 2",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
     {
-      id: 3,
+      id: "OHC3",
       name: "OHC 3",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
     {
-      id: 4,
+      id: "OHC4",
       name: "OHC 4",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
     {
-      id: 5,
+      id: "OHC5",
       name: "OHC 5",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
     {
-      id: 6,
+      id: "OHC6",
       name: "OHC 6",
       component: (
         <OhcCurrentCycle
-          dataCycleConditions={ohcData[id - 1]?.cycle?.cycleDescription}
+          dataCycleConditions={selectedData?.cycle?.cycleDescription}
         />
       ),
     },
@@ -106,7 +107,7 @@ export const OhcDetail2 = () => {
               </Tab>
             ))}
             <Link
-              to="/ohc-sbc-wt-detail-history/1"
+              to="/ohc-sbc-wt-detail-history/OHC1"
               as="div"
               className={
                 "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "

@@ -4,35 +4,15 @@ import { CardOhcStatus } from "../../../../../share-components/CardOhcStatus";
 import MotorLifterChart from "../../../../../share-components/MotorLifterChart";
 import TemperatureMotorChart from "../../../../../share-components/TemperatureMotorChart";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { io } from "socket.io-client";
-import { setOhcData } from "../../../../../slices/ohcSlice";
-import { convertSecondsToTime } from "../../../../../share-components/Helper";
+import { useOhcSocket } from "@src/share-components/useOhcSocket";
+// import { convertSecondsToTime } from "../../../../../share-components/Helper";
 
 export const OhcDetail1 = () => {
-  const { ohcData } = useSelector((state) => state.ohc);
-  const dispatch = useDispatch();
+  const { ohcData } = useOhcSocket();
   // console.log(ohcData, "ohc");
   const { elementId } = useParams();
-  useEffect(() => {
-    const socket = io("http://147.93.30.33:8000", {
-      transports: ["websocket", "polling"],
-      withCredentials: true,
-      reconnection: true, // Aktifkan reconnect
-    });
+  const selectedData = ohcData?.find((data) => data.name === elementId);
 
-    socket.on("ohcStatus", (data) => {
-      // console.log("Received data:", data);
-      dispatch(setOhcData(data?.ohcs));
-    });
-
-    // Cleanup saat komponen di-unmount
-    return () => {
-      socket.off("ohcStatus"); // Hapus event listener
-      socket.close(); // Tutup koneksi WebSocket
-    };
-  }, [dispatch]);
   const abnormalities = [
     {
       id: 1,
@@ -70,27 +50,27 @@ export const OhcDetail1 = () => {
 
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
-            to="/ohc-sbc-wt-sp"
+            // to="/ohc-sbc-wt-sp/1"
             title="Current Location"
-            value={ohcData[elementId - 1]?.location}
+            value={selectedData?.sp[0].name}
             backgroundColor="bg-hijau"
           />
           <CardOhcStatus
             title="Current Condition"
-            value={ohcData[elementId - 1]?.condition}
+            value={selectedData?.condition}
             backgroundColor="bg-kuning"
           />
         </div>
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Running Time"
-            value={convertSecondsToTime(ohcData[elementId - 1]?.runningTime)}
+            value={selectedData?.runningTime}
             unit={"H"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Stop Time"
-            value={convertSecondsToTime(ohcData[elementId - 1]?.stopTime)}
+            value={selectedData?.stopTime}
             unit={"H"}
             backgroundColor="bg-outlet"
           />
@@ -98,13 +78,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Efficiency"
-            value={ohcData[elementId - 1]?.efficiency}
+            value={selectedData?.efficiency}
             unit={"%"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Performance"
-            value={ohcData[elementId - 1]?.performance}
+            value={selectedData?.performance}
             unit={"%"}
             backgroundColor="bg-outlet"
           />
@@ -112,13 +92,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Cycle time"
-            value={ohcData[elementId - 1]?.cycleTime.toFixed(3)}
+            value={selectedData?.cycleTime}
             unit={"sec"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Takt Time"
-            value={ohcData[elementId - 1]?.taktTime.toFixed(3)}
+            value={selectedData?.taktTime ? selectedData?.taktTime : "-"}
             unit={"sec"}
             backgroundColor="bg-outlet"
           />
@@ -126,13 +106,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Current Motor Lifter/h"
-            value={ohcData[elementId - 1]?.currentMotorLifter.toFixed(3)}
+            value={selectedData?.currentMotorLifter.toFixed(3)}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Current Motor Transfer/h"
-            value={ohcData[elementId - 1]?.currentMotorTransfer.toFixed(3)}
+            value={selectedData?.currentMotorTransfer.toFixed(3)}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
@@ -140,13 +120,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Temp. Motor Lifter/h"
-            value={ohcData[elementId - 1]?.tempMotorLifter.toFixed(3)}
+            value={selectedData?.tempMotorLifter.toFixed(3)}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Temp Motor Trans/h"
-            value={ohcData[elementId - 1]?.tempMotorTransfer.toFixed(3)}
+            value={selectedData?.tempMotorTransfer.toFixed(3)}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />

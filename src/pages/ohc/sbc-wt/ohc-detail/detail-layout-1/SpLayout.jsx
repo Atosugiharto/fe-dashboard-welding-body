@@ -15,15 +15,15 @@ export const SpLayout = () => {
   const navigate = useNavigate();
   const listOhc = [
     {
-      id: 1,
+      id: "SP1",
       name: "SP 1",
     },
     {
-      id: 7,
+      id: "SP7",
       name: "SP 7",
     },
     {
-      id: 8,
+      id: "SP8",
       name: "SP 8",
     },
     {

@@ -1,11 +1,12 @@
 import Table from "../../../../../../share-components/Table";
 import TableOhcCycleCondition from "../../../../../../share-components/TableOhcCycleCondition";
-import { useSpSocket } from "../../../../../../share-components/useSpSocket";
+import { useOhcSocket } from "@src/share-components/useOhcSocket";
 import sp1_1 from "@src/assets/sp1-1.PNG";
 import sp1_2 from "@src/assets/sp1-2.PNG";
 
 export const Sp1 = () => {
-  const { spData, id } = useSpSocket();
+  const { spData, id } = useOhcSocket();
+  const selectedData = spData?.find((data) => data.name === id);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
@@ -31,7 +32,9 @@ export const Sp1 = () => {
 
         <div className="bg-white rounded-lg py-2 pl-5 pr-2">
           <div className="text-md font-bold mb-4">Cycle Time</div>
-          <TableOhcCycleCondition data={spData[id]?.cycle?.cycleDescription} />
+          <TableOhcCycleCondition
+            data={selectedData?.cycle?.cycleDescription}
+          />
         </div>
       </div>
     </div>
