@@ -40,7 +40,7 @@ export const OhcDetail1 = () => {
       <div className="grid grid-cols-1 lg:grid-cols-7 gap-2 items-center">
         <div className="rounded-lg bg-white px-4 h-full flex items-center justify-center">
           <div
-            className={`bg-hijau text-center font-bold text-xl p-2 rounded-lg w-full`}
+            className={`bg-hijau text-center font-bold text-xl 4k:text-4xl p-2 rounded-lg w-full`}
           >
             <p>OHC</p>
             <p>STATUS</p>
@@ -162,17 +162,17 @@ export const OhcDetail1 = () => {
 
         <div>
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <h2 className="text-2xl font-bold text-center mb-10">
+            <h2 className="text-2xl 4k:text-5xl font-bold text-center mb-10">
               Abnormality
             </h2>
             <div>
               {abnormalities?.map((abnormality, index) => (
                 <div key={index} className="grid grid-cols-5 gap-1 mb-4">
-                  <div className="col-span-3 px-2 py-4 bg-tombol-abu-tua rounded-md text-center font-bold flex items-center">
+                  <div className="4k:text-3xl col-span-3 px-2 py-4 bg-tombol-abu-tua rounded-md text-center font-bold flex items-center">
                     {abnormality?.label}
                   </div>
 
-                  <div className="col-span-2 px-2 py-4 bg-tombol-abu-tua rounded-md font-bold text-center text-4xl ">
+                  <div className="col-span-2 px-2 py-4 bg-tombol-abu-tua rounded-md font-bold text-center text-4xl 4k:text-7xl">
                     {abnormality?.value}
                   </div>
                 </div>

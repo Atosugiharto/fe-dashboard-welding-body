@@ -11,13 +11,13 @@ export const SbcWt = () => {
   const { ohcData, summary } = useOhcSocket();
 
   return (
-    <div>
+    <div className="4k:text-3xl">
       <div>
         <MenuDate menu={"OHC SBC -WT"} />
       </div>
 
       <div className="mt-4">
-        <div className="grid grid-cols-4 lg:grid-cols-9 gap-2 items-center">
+        <div className="grid grid-cols-4 lg:grid-cols-9 gap-2 items-center 4k:text-4xl">
           <CardWithValue
             classAdditional={"col-span-2"}
             label={"Running Time"}
@@ -42,11 +42,11 @@ export const SbcWt = () => {
             value={summary?.performance}
             unit={"%"}
           />
-          <div className="col-span-1 grid grid-cols-1 gap-2">
-            <button className="bg-gray-300 rounded-lg py-2 px-4 text-md font-bold">
+          <div className="col-span-1 grid grid-cols-1 gap-2 text-md">
+            <button className="bg-gray-300 rounded-lg py-2 px-4 font-bold">
               Daily
             </button>
-            <button className="bg-gray-300 rounded-lg py-2 px-4 text-md font-bold">
+            <button className="bg-gray-300 rounded-lg py-2 px-4 font-bold">
               Total
             </button>
           </div>
@@ -54,17 +54,17 @@ export const SbcWt = () => {
 
         <div className="mt-2">
           <div className="grid grid-cols-1 lg:grid-cols-8 gap-2">
-            <div className="lg:col-span-5 bg-white rounded-lg p-2">
+            <div className="lg:col-span-5 4k:col-span-6 bg-white rounded-lg p-2">
               <p>Layout</p>
               <div className="mt-4">
                 <Diagram />
               </div>
             </div>
-            <div className="lg:col-span-3">
+            <div className="lg:col-span-3 4k:col-span-2">
               <div className="bg-white rounded-lg">
                 <div className="grid grid-cols-3 gap-2 items-center p-2 font-bold">
                   <div className="col-span-1">OHC Status</div>
-                  <div className="flex items-center gap-4 text-xs">
+                  <div className="flex items-center gap-4 text-xs 4k:text-2xl">
                     <div className="flex items-center gap-2">
                       <span className="w-5 h-5 bg-hijau border border-black" />
                       <p>Ready</p>

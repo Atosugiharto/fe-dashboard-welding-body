@@ -16,12 +16,14 @@ export const CardOhcStatus = ({
         to !== "" ? "cursor-pointer" : "cursor-default"
       }`}
     >
-      <div className="text-center text-xs font-semibold mb-1">{title}</div>
+      <div className="text-center text-xs 4k:text-2xl font-semibold mb-1">
+        {title}
+      </div>
       <div
-        className={`${backgroundColor} text-center font-bold text-2xl p-1 rounded-lg`}
+        className={`${backgroundColor} text-center font-bold text-2xl 4k:text-5xl p-1 rounded-lg`}
       >
         {value ? value : "-"}
-        <span className="text-xl">{unit}</span>
+        <span className="text-xl 4k:text-3xl">{unit}</span>
       </div>
     </Link>
   );

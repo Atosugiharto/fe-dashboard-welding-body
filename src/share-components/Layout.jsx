@@ -66,15 +66,6 @@ function classNames(...classes) {
 export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const hideSidebar = useSelector((state) => state.sidebar.hideSidebar);
-  const location = useLocation();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Cek apakah path saat ini mengandung '/ohc-sbc-wt-detail/OHC'
-    if (location.pathname.includes("/ohc-sbc-wt-detail/")) {
-      dispatch(closeSidebar());
-    }
-  }, [location, dispatch]);
 
   return (
     <>
@@ -125,7 +116,7 @@ export default function Layout() {
                       >
                         <span className="sr-only">Close sidebar</span>
                         <XMarkIcon
-                          className="h-4 w-4 text-white"
+                          className="h-4 w-4 4k:h-8 4k:w-8 text-white"
                           aria-hidden="true"
                         />
                       </button>
@@ -154,12 +145,12 @@ export default function Layout() {
                                         isActive
                                           ? "bg-sidebar"
                                           : "hover:bg-sidebar",
-                                        "group flex items-center gap-x-3 rounded-md p-2 text-medium text-sm leading-6 text-dongker"
+                                        "group flex items-center gap-x-3 rounded-md p-2 text-medium text-sm 4k:text-2xl leading-6 text-dongker"
                                       )
                                     }
                                   >
                                     <item.icon
-                                      className="h-4 w-4 shrink-0 text-dongker"
+                                      className="h-4 w-4 4k:h-8 4k:w-8 shrink-0 text-dongker"
                                       aria-hidden="true"
                                     />
                                     {item.name}
@@ -173,11 +164,11 @@ export default function Layout() {
                                             item.current
                                               ? "bg-sidebar"
                                               : "hover:bg-sidebar",
-                                            "flex items-center w-full text-left rounded-md p-2 gap-x-3 text-medium text-sm leading-6 text-dongker"
+                                            "flex items-center w-full text-left rounded-md p-2 gap-x-3 text-medium text-sm 4k:text-2xl leading-6 text-dongker"
                                           )}
                                         >
                                           <item.icon
-                                            className="h-4 w-4 shrink-0 text-dongker"
+                                            className="h-4 w-4 4k:h-8 4k:w-8 shrink-0 text-dongker"
                                             aria-hidden="true"
                                           />
                                           {item.name}
@@ -204,7 +195,7 @@ export default function Layout() {
                                                   subItem.current
                                                     ? "bg-sidebar"
                                                     : "hover:bg-sidebar",
-                                                  "block rounded-md py-2 pr-2 pl-9 text-medium text-sm leading-6 text-dongker"
+                                                  "block rounded-md py-2 pr-2 pl-9 text-medium text-sm 4k:text-2xl leading-6 text-dongker"
                                                 )}
                                               >
                                                 {subItem.name}
@@ -234,18 +225,22 @@ export default function Layout() {
           className={`${
             hideSidebar
               ? "hidden lg:hidden"
-              : "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col"
+              : "hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 4k:w-96 lg:flex-col"
           } `}
         >
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-sidebar pb-4">
-            <div className="h-16 shrink-0 flex items-center justify-center bg-white py-2 ">
-              <img className="h-8 w-auto" src={logo} alt="Toyota Indonesia" />
+            <div className="shrink-0 flex items-center justify-center bg-white py-2 ">
+              <img
+                className="h-8 4k:h-12 w-auto"
+                src={logo}
+                alt="Toyota Indonesia"
+              />
             </div>
             <nav className="flex flex-1 flex-col px-6 pt-20">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
-                  <ul role="list" className="-mx-2 space-y-1">
+                  <ul role="list" className="-mx-2 space-y-1 4k:space-y-4">
                     {navigation.map((item) => (
                       <li key={item.name}>
                         {!item.children ? (
@@ -254,12 +249,12 @@ export default function Layout() {
                             className={({ isActive }) =>
                               classNames(
                                 isActive ? "bg-sidebar" : "hover:bg-sidebar",
-                                "group flex items-center gap-x-3 rounded-md p-2 text-medium text-md leading-6 text-dongker"
+                                "group flex items-center gap-x-3 rounded-md p-2 text-medium text-md 4k:text-3xl leading-6 text-dongker"
                               )
                             }
                           >
                             <item.icon
-                              className="h-4 w-4 shrink-0 text-dongker"
+                              className="h-4 w-4 4k:h-8 4k:w-8 shrink-0 text-dongker"
                               aria-hidden="true"
                             />
                             {item.name}
@@ -273,11 +268,11 @@ export default function Layout() {
                                     item.current
                                       ? "bg-sidebar"
                                       : "hover:bg-sidebar",
-                                    "flex items-center w-full text-left rounded-md p-2 gap-x-3 text-medium text-md leading-6 text-dongker"
+                                    "flex items-center w-full text-left rounded-md p-2 gap-x-3 text-medium text-md 4k:text-3xl leading-6 text-dongker"
                                   )}
                                 >
                                   <item.icon
-                                    className="h-4 w-4 shrink-0 text-dongker"
+                                    className="h-4 w-4 4k:h-8 4k:w-8 shrink-0 text-dongker"
                                     aria-hidden="true"
                                   />
                                   {item.name}
@@ -301,11 +296,11 @@ export default function Layout() {
                                           subItem.current
                                             ? "bg-sidebar"
                                             : "hover:bg-sidebar",
-                                          "block rounded-md py-2 pr-2 pl-9 text-medium text-md leading-6 text-dongker items-center"
+                                          "block rounded-md py-2 4k:py-3 pr-2 pl-9 text-medium text-md 4k:text-3xl leading-6 text-dongker items-center"
                                         )}
                                       >
                                         <subItem.icon
-                                          className="h-4 w-4 shrink-0 text-dongker"
+                                          className="h-4 w-4 4k:h-8 4k:w-8 shrink-0 text-dongker"
                                           aria-hidden="true"
                                         />
                                         {subItem.name}
@@ -328,7 +323,7 @@ export default function Layout() {
 
         <div
           className={`${
-            hideSidebar ? "lg:pl-0" : "lg:pl-64"
+            hideSidebar ? "lg:pl-0" : "lg:pl-64 4k:pl-96"
           } bg-sidebar lg:sticky`}
         >
           <div className="top-0 z-40 flex h-16 shrink-0 items-center gap-x-4  bg-white px-4 sm:gap-x-6 sm:px-6 lg:px-8">
@@ -338,12 +333,12 @@ export default function Layout() {
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
-              <Bars3Icon className="h-4 w-4" aria-hidden="true" />
+              <Bars3Icon className="h-4 w-4 4k:h-8 4k:w-8" aria-hidden="true" />
             </button>
             <div className="ml-5 p-2.5 text-dongker hidden lg:flex lg:items-center lg:gap-x-2">
               <span className="sr-only">Logo</span>
               <img
-                className={`${!hideSidebar && "hidden"} h-8 w-auto`}
+                className={`${!hideSidebar && "hidden"} h-8 4k:h-12 w-auto`}
                 src={logo}
                 alt="Toyota Indonesia"
               />
@@ -355,13 +350,13 @@ export default function Layout() {
               aria-hidden="true"
             />
 
-            <div className="flex flex-1 items-center justify-center self-stretch lg:gap-x-6 text-dongker font-bold md:text-2xl">
+            <div className="flex flex-1 items-center justify-center self-stretch lg:gap-x-6 text-dongker font-bold md:text-2xl 4k:text-4xl">
               MAINTENANCE REAL TIME DASHBOARD WELDING BODY#1
             </div>
           </div>
 
           <main className="py-4 bg-outlet min-h-screen rounded-tl-3xl">
-            <div className="px-4 sm:px-6 lg:px-8 text-dongker">
+            <div className="px-4 sm:px-6 lg:px-8 4k:px-10 text-dongker">
               <Outlet />
             </div>
           </main>

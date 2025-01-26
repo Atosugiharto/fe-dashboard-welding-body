@@ -70,7 +70,7 @@ export const OhcDetail = () => {
                     selected
                       ? "bg-dongker text-white"
                       : "bg-white hover:bg-dongker hover:text-white",
-                    "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer"
+                    "w-full text-center py-3 text-sm 4k:text-2xl font-bold rounded-lg cursor-pointer"
                   )
                 }
               >
@@ -81,7 +81,7 @@ export const OhcDetail = () => {
               as="div"
               to="/ohc-sbc-wt-detail-cycle/OHC1"
               className={
-                "w-full text-center py-3 text-sm font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
+                "w-full text-center py-3 text-sm 4k:text-2xl font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }
             >
               Next

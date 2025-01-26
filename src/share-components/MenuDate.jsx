@@ -5,12 +5,12 @@ import { HomeIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Bars3Icon } from "@heroicons/react/24/outline";
-import { toggleSidebar, openSidebar } from "../slices/sidebarSlice";
+import { toggleSidebar } from "../slices/sidebarSlice";
 
 export const MenuDate = ({
   menu,
   href = "/ohc-sbc-wt",
-  icon = <HomeIcon className="h-6 w-6" />,
+  icon = <HomeIcon className="h-6 w-6 4k:h-10 4k:w-10" />,
 }) => {
   const [time, setTime] = useState("");
   const [loading, setLoading] = useState(true);
@@ -59,15 +59,13 @@ export const MenuDate = ({
   return (
     <div className="flex items-center justify-between">
       <div className="font-bold text-xl flex items-center gap-2">
-        <Link to={href} onClick={() => dispatch(openSidebar())}>
-          {icon}
-        </Link>
+        <Link to={href}>{icon}</Link>
         <button type="button" onClick={() => dispatch(toggleSidebar())}>
-          <Bars3Icon className="h-6 w-6" />
+          <Bars3Icon className="h-6 w-6 4k:h-10 4k:w-10" />
         </button>
-        <div>{menu}</div>
+        <div className="4k:text-3xl">{menu}</div>
       </div>
-      <div className="text-center text-sm">
+      <div className="text-center text-sm 4k:text-2xl">
         <div>{todayFormatted}</div>
         <div>{loading ? <Spinner classAdditional={"h-5"} /> : time}</div>
       </div>

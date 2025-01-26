@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { SwapVert, PlayArrowOutlined } from "@mui/icons-material";
 
-const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
+const TableWithSorting = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
   const data = [
@@ -159,38 +159,35 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
   };
 
   return (
-    <div className={`overflow-x-auto text-sm ${maxHeight}`}>
+    <div
+      style={{ maxHeight: "70%" }}
+      className={`overflow-x-auto text-sm 4k:text-2xl`}
+    >
       <table className="table-auto w-full border-collapse border-2 border-dongker text-center">
         <thead className="bg-dongker text-white">
           <tr>
-            {[
-              "No",
-              "Date",
-              "Month",
-              "Years",
-              "ID",
-              "Descriptions",
-              "Error",
-            ].map((header, index) => (
-              <th
-                key={index}
-                onClick={() => handleSort(header.toLowerCase())}
-                className="px-2 cursor-pointer"
-              >
-                {header}
-                <span className="ml-2 text-xs pt-0.5 pb-1.5 bg-tombol-abu-tua text-tulisan-tombol-abu-tua">
-                  {sortConfig.key === header.toLowerCase() ? (
-                    sortConfig.direction === "asc" ? (
-                      <PlayArrowOutlined className="h-6 w-auto -rotate-90" />
+            {["No", "Date", "Month", "Years", "ID", "Descriptions"].map(
+              (header, index) => (
+                <th
+                  key={index}
+                  onClick={() => handleSort(header.toLowerCase())}
+                  className="px-2 cursor-pointer"
+                >
+                  {header}
+                  <span className="ml-2 text-xs 4k:text-xl pt-0.5 pb-1.5 bg-tombol-abu-tua text-tulisan-tombol-abu-tua">
+                    {sortConfig.key === header.toLowerCase() ? (
+                      sortConfig.direction === "asc" ? (
+                        <PlayArrowOutlined className="h-6 4k:h-12 w-auto -rotate-90" />
+                      ) : (
+                        <PlayArrowOutlined className="h-6 4k:h-12 w-auto rotate-90" />
+                      )
                     ) : (
-                      <PlayArrowOutlined className="h-6 w-auto rotate-90" />
-                    )
-                  ) : (
-                    <SwapVert className="h-5 w-auto" />
-                  )}
-                </span>
-              </th>
-            ))}
+                      <SwapVert className="h-5 4k:h-14 w-auto" />
+                    )}
+                  </span>
+                </th>
+              )
+            )}
           </tr>
         </thead>
         <tbody>
@@ -213,9 +210,6 @@ const TableWithSorting = ({ maxHeight = "max-h-96" }) => {
               </td>
               <td className="border-x-2 border-dongker px-1 py-0.5 text-left">
                 {row.description}
-              </td>
-              <td className="border-x-2 border-dongker px-1 py-0.5">
-                {row.error}
               </td>
             </tr>
           ))}

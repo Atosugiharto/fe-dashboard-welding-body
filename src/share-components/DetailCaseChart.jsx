@@ -1,8 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 const DetailCaseChart = () => {
   const [selectedMonth, setSelectedMonth] = useState("January");
+  const [chartHeight, setChartHeight] = useState(250);
+  const [fontSize, setFontSize] = useState({
+    xaxis: "12px",
+    yaxis: "12px",
+    title: "text-lg",
+  });
+
+  useEffect(() => {
+    const updateResponsiveSettings = () => {
+      if (window.innerWidth >= 3840) {
+        setChartHeight(400);
+        setFontSize({
+          xaxis: "17px",
+          yaxis: "17px",
+          title: "text-3xl",
+        });
+      } else {
+        setChartHeight(250);
+        setFontSize({
+          xaxis: "12px",
+          yaxis: "12px",
+          title: "text-lg",
+        });
+      }
+    };
+
+    updateResponsiveSettings();
+    window.addEventListener("resize", updateResponsiveSettings);
+    return () => window.removeEventListener("resize", updateResponsiveSettings);
+  }, []);
 
   const data = {
     January: [4, 8, 8, 11, 11, 13, 6, 6, 9, 6, 3, 10],
@@ -66,27 +96,26 @@ const DetailCaseChart = () => {
       labels: {
         rotate: -45,
         style: {
-          fontSize: "12px",
+          fontSize: fontSize.xaxis,
         },
       },
     },
     yaxis: {
       title: {
         text: "Number of Cases",
+        style: {
+          fontSize: fontSize.yaxis,
+        },
+      },
+      labels: {
+        style: {
+          fontSize: fontSize.yaxis,
+        },
       },
     },
     legend: {
       show: false,
     },
-    // title: {
-    //   text: "Detail Case",
-    //   align: "left",
-    //   style: {
-    //     fontSize: "16px",
-    //     fontWeight: "bold",
-    //     color: "#333",
-    //   },
-    // },
   };
 
   const handleMonthChange = (event) => {
@@ -95,8 +124,8 @@ const DetailCaseChart = () => {
 
   return (
     <div className="flex flex-col items-center p-2">
-      <div className="flex justify-between w-full items-center mb-4">
-        <h2 className="text-lg font-bold">Detail Case</h2>
+      <div className="flex text-xs 4k:text-xl justify-between w-full items-center mb-4">
+        <h2 className={`font-bold ${fontSize.title}`}>Detail Case</h2>
         <div className="flex items-center">
           <label htmlFor="month" className="mr-2 text-gray-700">
             Month
@@ -114,7 +143,12 @@ const DetailCaseChart = () => {
         </div>
       </div>
       <div className="w-full">
-        <Chart options={options} series={series} type="bar" height={250} />
+        <Chart
+          options={options}
+          series={series}
+          type="bar"
+          height={chartHeight}
+        />
       </div>
     </div>
   );

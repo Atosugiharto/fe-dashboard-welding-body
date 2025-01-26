@@ -1,11 +1,40 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 /* eslint-disable react/prop-types */
-const TableOhcCycleCondition = ({ maxHeight = "max-h-64", data = [] }) => {
+const TableOhcCycleCondition = ({
+  maxHeight = "max-h-64 4k:max-h-96",
+  data = [],
+}) => {
   const navigate = useNavigate();
+  const [fontSize, setFontSize] = useState("11px");
+  const [marginTop, setMarginTop] = useState("28px");
+  useEffect(() => {
+    const updateFontSize = () => {
+      if (window.innerWidth >= 3840) {
+        // 4K resolution
+        setFontSize("20px");
+        setMarginTop("38px");
+      } else {
+        // Default resolution (smaller screens)
+        setFontSize("11px");
+        setMarginTop("28px");
+      }
+    };
+
+    // Initial check
+    updateFontSize();
+
+    // Add resize event listener
+    window.addEventListener("resize", updateFontSize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener("resize", updateFontSize);
+  }, []);
   return (
     <div
-      className={`flex overflow-x-auto text-sm gap-1 overflow-y-auto ${maxHeight}`}
+      className={`flex overflow-x-auto text-sm 4k:text-2xl gap-1 overflow-y-auto ${maxHeight}`}
     >
       {/* Bagian Tabel */}
       <div className="flex-1">
@@ -61,11 +90,11 @@ const TableOhcCycleCondition = ({ maxHeight = "max-h-64", data = [] }) => {
       </div>
 
       {/* Bagian Tombol Reset */}
-      <div className="flex flex-col gap-1" style={{ marginTop: "28px" }}>
+      <div className="flex flex-col gap-1" style={{ marginTop: marginTop }}>
         {data.map((row, index) => (
           <button
             key={index}
-            style={{ fontSize: "11px" }}
+            style={{ fontSize: fontSize }}
             className={`pl-1 pr-4 rounded-sm ${
               row.re === "NG"
                 ? "bg-black text-white"

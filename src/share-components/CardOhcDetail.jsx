@@ -15,7 +15,7 @@ export const CardOhcDetail = ({
     >
       <div className="text-center font-bold">{title}</div>
       <div>
-        <label className="text-xs" htmlFor="ohc1-amp">
+        <label className="text-xs 4k:text-xl" htmlFor="ohc1-amp">
           Amp
         </label>
         <input
@@ -27,7 +27,7 @@ export const CardOhcDetail = ({
       </div>
 
       <div className="mt-2">
-        <label className="text-xs" htmlFor="ohc1-temp">
+        <label className="text-xs 4k:text-xl" htmlFor="ohc1-temp">
           Temp
         </label>
         <input

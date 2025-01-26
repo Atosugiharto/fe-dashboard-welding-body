@@ -174,7 +174,7 @@ const Diagram = () => {
       {spDatas?.map((sp, index) => (
         <div
           key={index}
-          className={`absolute text-[4px] md:text-xs ${sp?.position}`}
+          className={`absolute text-[4px] md:text-xs 4k:text-xl ${sp?.position}`}
         >
           <div className="flex items-center">
             <span className="bg-dongker text-white py-0.5 px-1 rounded">

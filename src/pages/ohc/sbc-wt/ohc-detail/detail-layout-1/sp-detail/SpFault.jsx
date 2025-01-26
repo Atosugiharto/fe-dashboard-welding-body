@@ -14,7 +14,7 @@ export const SpFault = () => {
       <div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-4">
           <div className="bg-white rounded-lg py-2 pl-5 pr-2">
-            <div className="text-md font-bold mb-4">Warning</div>
+            <div className="text-md 4k:text-3xl font-bold mb-4">Warning</div>
             <TableWithSorting2 maxHeight="max-h-screen" />
           </div>
 

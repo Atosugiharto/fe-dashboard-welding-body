@@ -1,11 +1,52 @@
-/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import { CircleOutlined } from "@mui/icons-material";
 import Chart from "react-apexcharts";
 
-const MotorLifterChart = ({ icon }) => {
+const MotorLifterChart = () => {
+  const [chartHeight, setChartHeight] = useState(250); // Default chart height
+  const [fontSize, setFontSize] = useState({
+    xaxis: "12px",
+    yaxis: "12px",
+    annotations: "10px",
+    title: "text-lg",
+  });
+
+  useEffect(() => {
+    const updateResponsiveSettings = () => {
+      if (window.innerWidth >= 3840) {
+        // For 4K resolution
+        setChartHeight(400);
+        setFontSize({
+          xaxis: "17px",
+          yaxis: "17px",
+          annotations: "15px",
+          title: "text-3xl",
+        });
+      } else {
+        // Default settings for smaller screens
+        setChartHeight(250);
+        setFontSize({
+          xaxis: "12px",
+          yaxis: "12px",
+          annotations: "10px",
+          title: "text-lg",
+        });
+      }
+    };
+
+    // Initial check
+    updateResponsiveSettings();
+
+    // Add resize listener
+    window.addEventListener("resize", updateResponsiveSettings);
+
+    // Cleanup listener on unmount
+    return () => window.removeEventListener("resize", updateResponsiveSettings);
+  }, []);
+
   const chartOptions = {
     chart: {
       type: "line",
-      height: 350,
       toolbar: {
         show: false,
       },
@@ -22,7 +63,7 @@ const MotorLifterChart = ({ icon }) => {
       ],
       labels: {
         style: {
-          fontSize: "12px",
+          fontSize: fontSize.xaxis,
         },
       },
     },
@@ -33,7 +74,7 @@ const MotorLifterChart = ({ icon }) => {
       labels: {
         formatter: (value) => `${value}A`,
         style: {
-          fontSize: "12px",
+          fontSize: fontSize.yaxis,
         },
       },
     },
@@ -47,7 +88,7 @@ const MotorLifterChart = ({ icon }) => {
             style: {
               color: "white",
               background: "red",
-              fontSize: "10px",
+              fontSize: fontSize.annotations,
             },
             text: "Max 290A",
           },
@@ -60,7 +101,7 @@ const MotorLifterChart = ({ icon }) => {
             style: {
               color: "white",
               background: "blue",
-              fontSize: "10px",
+              fontSize: fontSize.annotations,
             },
             text: "Min 261A",
           },
@@ -73,7 +114,7 @@ const MotorLifterChart = ({ icon }) => {
             style: {
               color: "black",
               background: "white",
-              fontSize: "10px",
+              fontSize: fontSize.annotations,
             },
             text: "Rated",
           },
@@ -106,12 +147,12 @@ const MotorLifterChart = ({ icon }) => {
       {/* Header Flex Container */}
       <div className="flex items-center justify-between">
         {/* Title */}
-        <h2 className="text-lg font-bold text-center flex-grow">
-          Current Motor Lifter(A)
+        <h2 className={`font-bold text-center flex-grow ${fontSize.title}`}>
+          Current Motor Lifter (A)
         </h2>
         {/* Icon */}
-        <button className="">
-          {icon}
+        <button>
+          <CircleOutlined className="text-black bg-hijau h-20 w-20 border border-black" />
         </button>
       </div>
       {/* Chart */}
@@ -119,7 +160,7 @@ const MotorLifterChart = ({ icon }) => {
         options={chartOptions}
         series={chartSeries}
         type="line"
-        height={250}
+        height={chartHeight}
       />
     </div>
   );

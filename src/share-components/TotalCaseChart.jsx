@@ -1,6 +1,48 @@
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 const TotalCaseChart = () => {
+  const [chartHeight, setChartHeight] = useState(250); // Default chart height
+  const [fontSize, setFontSize] = useState({
+    xaxis: "12px",
+    yaxis: "12px",
+    title: "text-lg",
+    legend: "12px",
+  });
+
+  useEffect(() => {
+    const updateResponsiveSettings = () => {
+      if (window.innerWidth >= 3840) {
+        // For larger screens (4K resolution)
+        setChartHeight(400);
+        setFontSize({
+          xaxis: "17px",
+          yaxis: "17px",
+          title: "text-3xl",
+          legend: "18px",
+        });
+      } else {
+        // Default settings for smaller screens
+        setChartHeight(250);
+        setFontSize({
+          xaxis: "12px",
+          yaxis: "12px",
+          title: "text-lg",
+          legend: "12px",
+        });
+      }
+    };
+
+    // Initial update
+    updateResponsiveSettings();
+
+    // Add resize listener
+    window.addEventListener("resize", updateResponsiveSettings);
+
+    // Cleanup listener on unmount
+    return () => window.removeEventListener("resize", updateResponsiveSettings);
+  }, []);
+
   const data = [10, 4, 8, 14, 11, 16, 6, 13, 9, 6, 5, 3];
   const categories = [
     "Jan",
@@ -57,46 +99,57 @@ const TotalCaseChart = () => {
       title: {
         text: "2024",
         offsetY: 5,
+        style: {
+          fontSize: fontSize.xaxis,
+        },
       },
       labels: {
         style: {
-          fontSize: "12px",
+          fontSize: fontSize.xaxis,
         },
       },
     },
     yaxis: {
       title: {
         text: "Number of Cases",
+        style: {
+          fontSize: fontSize.yaxis,
+        },
+      },
+      labels: {
+        style: {
+          fontSize: fontSize.yaxis,
+        },
       },
     },
     legend: {
       show: true,
+      fontSize: fontSize.legend, // Responsive font size for legend
       markers: {
         fillColors: colors,
       },
       labels: {
+        colors: ["#000"],
         useSeriesColors: false,
       },
       customLegendItems: ["≥ 10", "< 10", "≤ 5"],
       position: "top",
       horizontalAlign: "right",
     },
-    // title: {
-    //   text: "Total Case",
-    //   align: "left",
-    //   style: {
-    //     fontSize: "16px",
-    //     fontWeight: "bold",
-    //     color: "#333",
-    //   },
-    // },
   };
 
   return (
     <div className="flex p-2 flex-col items-center">
       <div className="w-full">
-        <h2 className="text-lg font-bold">Total Case</h2>
-        <Chart options={options} series={series} type="bar" height={250} />
+        {/* Title */}
+        <h2 className={`font-bold ${fontSize.title}`}>Total Case</h2>
+        {/* Chart */}
+        <Chart
+          options={options}
+          series={series}
+          type="bar"
+          height={chartHeight}
+        />
       </div>
     </div>
   );
