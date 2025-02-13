@@ -5,6 +5,7 @@ import { useOhcSocket } from "@src/share-components/useOhcSocket";
 
 const Diagram = () => {
   const { spData } = useOhcSocket();
+  const [ohcsInSP0, setOhcsInSP0] = useState([]);
   const [ohcsInSP1, setOhcsInSP1] = useState([]);
   const [ohcsInSP2, setOhcsInSP2] = useState([]);
   const [ohcsInSP3, setOhcsInSP3] = useState([]);
@@ -19,6 +20,11 @@ const Diagram = () => {
   const [ohcsInSP11, setOhcsInSP11] = useState([]);
 
   useEffect(() => {
+    const ohcsInSP0 = spData
+      ?.filter((sp) => sp?.name === "SP0")
+      .map((spDetail) => spDetail?.ohc?.name)
+      .map((name) => name?.replace("OHC", ""));
+
     const ohcsInSP1 = spData
       ?.filter((sp) => sp?.name === "SP1")
       .map((spDetail) => spDetail?.ohc?.name)
@@ -79,6 +85,7 @@ const Diagram = () => {
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
+    setOhcsInSP0(ohcsInSP0);
     setOhcsInSP1(ohcsInSP1);
     setOhcsInSP2(ohcsInSP2);
     setOhcsInSP3(ohcsInSP3);
@@ -94,6 +101,12 @@ const Diagram = () => {
   }, [spData]);
 
   const spDatas = [
+    {
+      label: "SP0",
+      value: ohcsInSP0 ? ohcsInSP0.join(", ") : "-",
+      position: "top-[52%] left-[40%]",
+      rotateIcon: "rotate-90",
+    },
     {
       label: "SP1",
       value: ohcsInSP1 ? ohcsInSP1.join(", ") : "-",
