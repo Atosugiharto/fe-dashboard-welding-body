@@ -10,6 +10,7 @@ export default {
         dongker: "#2F5166",
         outlet: "#F0F2F9",
         sidebar: "#FBFBFC",
+        "label-sp": "#3333fd",
         "tombol-abu-tua": "#DDDCDC",
         "tulisan-tombol-abu-tua": "#71708F",
       },
