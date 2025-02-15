@@ -13,7 +13,7 @@ function classNames(...classes) {
 
 export const SpLayout = () => {
   const navigate = useNavigate();
-  const listOhc = [
+  const listTabSp = [
     {
       id: "SP1",
       name: "SP 1",
@@ -33,7 +33,7 @@ export const SpLayout = () => {
   ];
 
   const handleTabChange = (index) => {
-    const selectedTab = listOhc[index];
+    const selectedTab = listTabSp[index];
     if (selectedTab) {
       navigate(`/ohc-sbc-wt-sp/${selectedTab?.id}`);
     }
@@ -52,14 +52,14 @@ export const SpLayout = () => {
               "grid grid-cols-4 lg:grid-cols-8 items-center gap-4 my-2"
             }
           >
-            {listOhc.map((item) => (
+            {listTabSp?.map((item) => (
               <Tab
                 as="div"
-                key={item.id}
+                key={item?.id}
                 className={({ selected }) =>
                   classNames(
                     selected
-                      ? item.id === "repair"
+                      ? item?.id === "repair"
                         ? "bg-kuning"
                         : "bg-dongker text-white"
                       : item.id === "repair"

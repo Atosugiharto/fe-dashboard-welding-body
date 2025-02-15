@@ -12,7 +12,7 @@ function classNames(...classes) {
 export const OhcDetail2 = () => {
   const navigate = useNavigate();
   const { ohcData, id } = useOhcSocket();
-  const selectedData = ohcData?.find((data) => data.name === id);
+  const selectedData = ohcData?.find((data) => data?.name === id);
 
   const listOhc = [
     {
@@ -90,10 +90,10 @@ export const OhcDetail2 = () => {
             as="div"
             className={"flex items-center justify-between gap-4 my-2"}
           >
-            {listOhc.map((item) => (
+            {listOhc?.map((item) => (
               <Tab
                 as="div"
-                key={item.id}
+                key={item?.id}
                 className={({ selected }) =>
                   classNames(
                     selected
@@ -103,7 +103,7 @@ export const OhcDetail2 = () => {
                   )
                 }
               >
-                {item.name}
+                {item?.name}
               </Tab>
             ))}
             <Link

@@ -97,7 +97,7 @@ export const OhcDetail1 = () => {
           />
           <CardOhcStatus
             title="Takt Time"
-            value={selectedData?.taktTime ? selectedData?.taktTime : "-"}
+            value={selectedData?.taktTime ? selectedData?.taktTime : 0}
             unit={"sec"}
             backgroundColor="bg-outlet"
           />

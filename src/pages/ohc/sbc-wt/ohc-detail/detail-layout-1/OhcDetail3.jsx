@@ -61,10 +61,10 @@ export const OhcDetail3 = () => {
             as="div"
             className={"flex items-center justify-between gap-4 my-2"}
           >
-            {listOhc.map((item) => (
+            {listOhc?.map((item) => (
               <Tab
                 as="div"
-                key={item.id}
+                key={item?.id}
                 className={({ selected }) =>
                   classNames(
                     selected
@@ -74,7 +74,7 @@ export const OhcDetail3 = () => {
                   )
                 }
               >
-                {item.name}
+                {item?.name}
               </Tab>
             ))}
             <Link
@@ -88,8 +88,8 @@ export const OhcDetail3 = () => {
             </Link>
           </Tab.List>
           <Tab.Panels>
-            {listOhc.map((item) => (
-              <Tab.Panel key={item.id}>{item.component}</Tab.Panel>
+            {listOhc?.map((item) => (
+              <Tab.Panel key={item?.id}>{item?.component}</Tab.Panel>
             ))}
           </Tab.Panels>
         </Tab.Group>

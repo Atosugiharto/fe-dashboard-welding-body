@@ -83,18 +83,20 @@ export const SbcWt = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-2 items-center mt-2 p-2 font-semibold">
                   {ohcData?.map((ohc) => (
                     <CardOhcDetail
-                      key={ohc.id}
+                      key={ohc?.id}
                       to={`/ohc-sbc-wt-detail/${ohc?.name}`}
                       title={`OHC ${ohc?.id}`}
                       amp={ohc?.tempMotorLifter}
                       temp={ohc?.tempMotorTransfer}
                       backgroundColor={
-                        ohc?.status === "NG" ? "bg-merah" : "bg-hijau"
+                        ohc?.status?.toLowerCase() === "ng"
+                          ? "bg-merah"
+                          : "bg-hijau"
                       }
                       borderColor={
-                        ohc?.status === "NG"
+                        ohc?.status?.toLowerCase() === "ng"
                           ? "border-merah"
-                          : ohc?.status === "Repair"
+                          : ohc?.status?.toLowerCase() === "repair"
                           ? "border-kuning"
                           : "border-hijau"
                       }
