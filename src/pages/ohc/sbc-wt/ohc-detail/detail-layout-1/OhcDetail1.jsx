@@ -10,7 +10,7 @@ import { useOhcSocket } from "@src/share-components/useOhcSocket";
 export const OhcDetail1 = () => {
   const { ohcData } = useOhcSocket();
   const { elementId } = useParams();
-  const selectedData = ohcData?.find((data) => data.name === elementId);
+  const selectedData = ohcData?.find((data) => data?.name === elementId);
 
   const abnormalities = [
     {
@@ -51,7 +51,7 @@ export const OhcDetail1 = () => {
           <CardOhcStatus
             // to="/ohc-sbc-wt-sp/1"
             title="Current Location"
-            value={selectedData?.sp[0].name}
+            value={selectedData?.sp[0]?.name ? selectedData?.sp[0]?.name : "-"}
             backgroundColor="bg-hijau"
           />
           <CardOhcStatus
