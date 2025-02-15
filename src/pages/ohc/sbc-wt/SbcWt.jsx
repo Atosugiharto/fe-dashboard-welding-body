@@ -84,7 +84,7 @@ export const SbcWt = () => {
                   {ohcData?.map((ohc) => (
                     <CardOhcDetail
                       key={ohc.id}
-                      to={`/ohc-sbc-wt-detail/${ohc.name}`}
+                      to={`/ohc-sbc-wt-detail/${ohc?.name}`}
                       title={`OHC ${ohc?.id}`}
                       amp={ohc?.tempMotorLifter}
                       temp={ohc?.tempMotorTransfer}
@@ -106,9 +106,9 @@ export const SbcWt = () => {
                 <div className="bg-white rounded-lg p-2 grid grid-cols-12 gap-2">
                   <div className="col-span-11">
                     <p className="font-bold">Warning</p>
-                    {warningLogs.map((item, index) => (
+                    {warningLogs?.map((item, index) => (
                       <div key={index} className="mt-2 ml-6">
-                        <p>{`${item.date} ${item.time} : ${item.message}`}</p>
+                        <p>{`${item?.date} ${item?.time} : ${item?.message}`}</p>
                       </div>
                     ))}
                   </div>

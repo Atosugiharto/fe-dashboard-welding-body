@@ -117,8 +117,8 @@ export const OhcDetail2 = () => {
             </Link>
           </Tab.List>
           <Tab.Panels>
-            {listOhc.map((item) => (
-              <Tab.Panel key={item.id}>{item.component}</Tab.Panel>
+            {listOhc?.map((item) => (
+              <Tab.Panel key={item?.id}>{item?.component}</Tab.Panel>
             ))}
           </Tab.Panels>
         </Tab.Group>

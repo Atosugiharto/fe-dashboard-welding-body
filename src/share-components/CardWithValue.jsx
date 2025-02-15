@@ -6,7 +6,7 @@ export const CardWithValue = ({label, value, unit, classAdditional}) => {
     >
       <div className="text-left">{label}</div>
       <div className="text-right font-bold text-2xl 4k:text-4xl">
-        {value ? value : "-"}
+        {value && value}
         <span className="text-xl 4k:text-2xl">{unit}</span>
       </div>
     </div>

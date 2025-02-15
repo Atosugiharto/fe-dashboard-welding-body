@@ -22,7 +22,7 @@ export const CardOhcStatus = ({
       <div
         className={`${backgroundColor} text-center font-bold text-2xl 4k:text-5xl p-1 rounded-lg`}
       >
-        {value ? value : "-"}
+        {value && value}
         <span className="text-xl 4k:text-3xl">{unit}</span>
       </div>
     </Link>
