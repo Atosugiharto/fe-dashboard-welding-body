@@ -16,22 +16,22 @@ export const OhcDetail1 = () => {
     {
       id: 1,
       label: "Current Motor Lifter",
-      value: selectedData?.currentMotorLifter,
+      value: selectedData?.currentMotorLifterAsset?.value,
     },
     {
       id: 2,
       label: "Current Motor Transfer",
-      value: selectedData?.currentMotorTransfer,
+      value: selectedData?.currentMotorTransferAsset?.value,
     },
     {
       id: 3,
       label: "Temperature Motor Lifter",
-      value: selectedData?.tempMotorLifter,
+      value: selectedData?.tempMotorLifterAsset?.value,
     },
     {
       id: 4,
       label: "Temperature Motor Transfer",
-      value: selectedData?.tempMotorTransfer,
+      value: selectedData?.tempMotorTransferAsset?.value,
     },
   ];
 
@@ -105,13 +105,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Current Motor Lifter/h"
-            value={selectedData?.currentMotorLifter}
+            value={selectedData?.currentMotorLifterAsset?.value}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Current Motor Transfer/h"
-            value={selectedData?.currentMotorTransfer}
+            value={selectedData?.currentMotorTransferAsset?.value}
             unit={"A"}
             backgroundColor="bg-outlet"
           />
@@ -119,13 +119,13 @@ export const OhcDetail1 = () => {
         <div className="grid grid-cols-1 gap-1">
           <CardOhcStatus
             title="Temp. Motor Lifter/h"
-            value={selectedData?.tempMotorLifter}
+            value={selectedData?.tempMotorLifterAsset?.value}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />
           <CardOhcStatus
             title="Temp Motor Trans/h"
-            value={selectedData?.tempMotorTransfer}
+            value={selectedData?.tempMotorTransferAsset?.value}
             unit={"°C"}
             backgroundColor="bg-outlet"
           />

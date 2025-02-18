@@ -86,8 +86,8 @@ export const SbcWt = () => {
                       key={ohc?.id}
                       to={`/ohc-sbc-wt-detail/${ohc?.name}`}
                       title={`OHC ${ohc?.id}`}
-                      amp={ohc?.tempMotorLifter}
-                      temp={ohc?.tempMotorTransfer}
+                      amp={ohc?.tempMotorLifterAsset?.value}
+                      temp={ohc?.tempMotorTransferAsset?.value}
                       backgroundColor={
                         ohc?.status?.toLowerCase() === "ng"
                           ? "bg-merah"
