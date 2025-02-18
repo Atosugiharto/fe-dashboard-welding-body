@@ -19,7 +19,7 @@ export const CardOhcDetail = ({
           Amp
         </label>
         <input
-          value={amp?.toFixed(2)}
+          value={amp}
           type="text"
           readOnly
           className="w-full rounded-lg bg-white p-1 mt-1"
@@ -32,7 +32,7 @@ export const CardOhcDetail = ({
         </label>
         <input
           readOnly
-          value={temp?.toFixed(2)}
+          value={temp}
           type="text"
           className="w-full rounded-lg bg-white p-1 mt-1"
         />
