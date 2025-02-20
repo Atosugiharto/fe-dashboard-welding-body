@@ -1,16 +1,72 @@
 /* eslint-disable react/prop-types */
-import { CloseOutlined, PlayArrowOutlined } from "@mui/icons-material";
 import { CardOhcStatus } from "../../../../../share-components/CardOhcStatus";
-import MotorLifterChart from "../../../../../share-components/MotorLifterChart";
+import CurrentMotorChart from "../../../../../share-components/CurrentMotorChart";
 import TemperatureMotorChart from "../../../../../share-components/TemperatureMotorChart";
 import { useParams } from "react-router-dom";
 import { useOhcSocket } from "@src/share-components/useOhcSocket";
-// import { convertSecondsToTime } from "../../../../../share-components/Helper";
 
 export const OhcDetail1 = () => {
   const { ohcData } = useOhcSocket();
   const { elementId } = useParams();
   const selectedData = ohcData?.find((data) => data?.name === elementId);
+
+  // == threshold value grafik ==
+  const thresholdMinCurrent =
+    selectedData?.monitoringGraphic?.threshold?.MOTOR_CURRENT?.MIN;
+  const thresholdMaxCurrent =
+    selectedData?.monitoringGraphic?.threshold?.MOTOR_CURRENT?.MAX;
+  const thresholdMinTemp =
+    selectedData?.monitoringGraphic?.threshold?.MOTOR_TEMP?.MIN;
+  const thresholdMaxTemp =
+    selectedData?.monitoringGraphic?.threshold?.MOTOR_TEMP?.MAX;
+
+  // == data grafik current motor lifter ==
+  const indicatorCurrentLifter =
+    selectedData?.monitoringGraphic?.currentLifter?.indicator;
+  const dataValueCurrentLifter =
+    selectedData?.monitoringGraphic?.currentLifter?.data?.map(
+      (item) => item?.value
+    );
+  const dataTimeCurrentLifter =
+    selectedData?.monitoringGraphic?.currentLifter?.data?.map(
+      (item) => item?.time
+    );
+
+  // == data grafik current motor transfer ==
+  const indicatorCurrentTransfer =
+    selectedData?.monitoringGraphic?.currentTransfer?.indicator;
+  const dataValueCurrentTransfer =
+    selectedData?.monitoringGraphic?.currentTransfer?.data?.map(
+      (item) => item?.value
+    );
+  const dataTimeCurrentTransfer =
+    selectedData?.monitoringGraphic?.currentTransfer?.data?.map(
+      (item) => item?.time
+    );
+
+  // == data grafik temp motor lifter ==
+  const indicatorTempLifter =
+    selectedData?.monitoringGraphic?.tempLifter?.indicator;
+  const dataValueTempLifter =
+    selectedData?.monitoringGraphic?.tempLifter?.data?.map(
+      (item) => item?.value
+    );
+  const dataTimeTempLifter =
+    selectedData?.monitoringGraphic?.tempLifter?.data?.map(
+      (item) => item?.time
+    );
+
+  // == data grafik temp motor transfer ==
+  const indicatorTempTransfer =
+    selectedData?.monitoringGraphic?.tempTransfer?.indicator;
+  const dataValueTempTransfer =
+    selectedData?.monitoringGraphic?.tempTransfer?.data?.map(
+      (item) => item?.value
+    );
+  const dataTimeTempTransfer =
+    selectedData?.monitoringGraphic?.tempTransfer?.data?.map(
+      (item) => item?.time
+    );
 
   const abnormalities = [
     {
@@ -136,27 +192,47 @@ export const OhcDetail1 = () => {
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-2 mt-2">
         <div className="col-span-2 grid grid-cols-1 gap-2">
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <MotorLifterChart
-              icon={
-                <PlayArrowOutlined className="border border-black text-black bg-kuning h-20 w-20 -rotate-90" />
-              }
+            <CurrentMotorChart
+              min={thresholdMinCurrent}
+              max={thresholdMaxCurrent}
+              dataSumbuX={dataTimeCurrentLifter}
+              dataSumbuY={dataValueCurrentLifter}
+              indicator={indicatorCurrentLifter}
+              title="Current Motor Lifter (A)"
             />
           </div>
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <MotorLifterChart
-              icon={
-                <CloseOutlined className="border border-black text-black bg-merah h-20 w-20 -rotate-90" />
-              }
+            <CurrentMotorChart
+              min={thresholdMinCurrent}
+              max={thresholdMaxCurrent}
+              dataSumbuX={dataTimeCurrentTransfer}
+              dataSumbuY={dataValueCurrentTransfer}
+              indicator={indicatorCurrentTransfer}
+              title="Current Motor Transfer (A)"
             />
           </div>
         </div>
 
         <div className="col-span-2 grid grid-cols-1 gap-2">
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <TemperatureMotorChart />
+            <TemperatureMotorChart
+              min={thresholdMinTemp}
+              max={thresholdMaxTemp}
+              dataSumbuX={dataTimeTempLifter}
+              dataSumbuY={dataValueTempLifter}
+              indicator={indicatorTempLifter}
+              title="Temperature Motor Lifter (C)"
+            />
           </div>
           <div className="rounded-lg bg-white w-full h-full p-2">
-            <TemperatureMotorChart />
+            <TemperatureMotorChart
+              min={thresholdMinCurrent}
+              max={thresholdMaxCurrent}
+              dataSumbuX={dataTimeTempTransfer}
+              dataSumbuY={dataValueTempTransfer}
+              indicator={indicatorTempTransfer}
+              title="Temperature Motor Transfer (C)"
+            />
           </div>
         </div>
 

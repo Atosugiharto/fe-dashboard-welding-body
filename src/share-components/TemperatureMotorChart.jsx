@@ -1,8 +1,21 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CircleOutlined } from "@mui/icons-material";
+import {
+  CircleOutlined,
+  CloseOutlined,
+  PlayArrowOutlined,
+} from "@mui/icons-material";
 import Chart from "react-apexcharts";
 
-const TemperatureMotorChart = () => {
+const TemperatureMotorChart = ({
+  dataSumbuX = [],
+  dataSumbuY = [],
+  indicator = "",
+  min = 0,
+  max = 0,
+  title = "",
+}) => {
   const [chartHeight, setChartHeight] = useState(250); // Default chart height
   const [fontSize, setFontSize] = useState({
     xaxis: "12px",
@@ -53,15 +66,7 @@ const TemperatureMotorChart = () => {
       },
     },
     xaxis: {
-      categories: [
-        "09.30",
-        "10.00",
-        "10.30",
-        "11.00",
-        "11.30",
-        "12.00",
-        "12.30",
-      ],
+      categories: dataSumbuX,
       labels: {
         style: {
           fontSize: fontSize.xaxis,
@@ -69,8 +74,7 @@ const TemperatureMotorChart = () => {
       },
     },
     yaxis: {
-      min: 50,
-      max: 150,
+      max: max,
       tickAmount: 5,
       labels: {
         formatter: (value) => `${value}°C`,
@@ -82,7 +86,7 @@ const TemperatureMotorChart = () => {
     annotations: {
       yaxis: [
         {
-          y: 125,
+          y: max,
           borderColor: "red",
           label: {
             borderColor: "red",
@@ -91,11 +95,11 @@ const TemperatureMotorChart = () => {
               background: "red",
               fontSize: fontSize.annotations,
             },
-            text: "Max 125°C",
+            text: `Max ${max}°C`,
           },
         },
         {
-          y: 112,
+          y: min,
           borderColor: "blue",
           label: {
             borderColor: "blue",
@@ -104,22 +108,22 @@ const TemperatureMotorChart = () => {
               background: "blue",
               fontSize: fontSize.annotations,
             },
-            text: "Min 112°C",
+            text: `Min ${min}°C`,
           },
         },
-        {
-          y: 100,
-          borderColor: "black",
-          label: {
-            borderColor: "black",
-            style: {
-              color: "black",
-              background: "white",
-              fontSize: fontSize.annotations,
-            },
-            text: "Rated",
-          },
-        },
+        // {
+        //   y: 100,
+        //   borderColor: "black",
+        //   label: {
+        //     borderColor: "black",
+        //     style: {
+        //       color: "black",
+        //       background: "white",
+        //       fontSize: fontSize.annotations,
+        //     },
+        //     text: "Rated",
+        //   },
+        // },
       ],
     },
     stroke: {
@@ -139,7 +143,7 @@ const TemperatureMotorChart = () => {
   const chartSeries = [
     {
       name: "Temperature",
-      data: [110, 120, 115, 130, 125, 118, 122],
+      data: dataSumbuY,
     },
   ];
 
@@ -149,11 +153,17 @@ const TemperatureMotorChart = () => {
       <div className="flex items-center justify-between">
         {/* Title */}
         <h2 className={`font-bold text-center flex-grow ${fontSize.title}`}>
-          Temperature Motor Lifter (C)
+          {title}
         </h2>
         {/* Icon */}
         <button>
-          <CircleOutlined className="text-black bg-hijau h-20 w-20 border border-black" />
+          {indicator?.toLowerCase() === "merah" ? (
+            <CloseOutlined className="border border-black text-black bg-merah h-20 w-20 -rotate-90" />
+          ) : indicator?.toLowerCase() === "kuning" ? (
+            <PlayArrowOutlined className="border border-black text-black bg-kuning h-20 w-20 -rotate-90" />
+          ) : (
+            <CircleOutlined className="text-black bg-hijau h-20 w-20 border border-black" />
+          )}
         </button>
       </div>
       {/* Chart */}

@@ -1,8 +1,21 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { CircleOutlined } from "@mui/icons-material";
+import {
+  CircleOutlined,
+  CloseOutlined,
+  PlayArrowOutlined,
+} from "@mui/icons-material";
 import Chart from "react-apexcharts";
 
-const MotorLifterChart = () => {
+const CurrentMotorChart = ({
+  dataSumbuX = [],
+  dataSumbuY = [],
+  indicator = "",
+  min = 0,
+  max = 0,
+  title = "",
+}) => {
   const [chartHeight, setChartHeight] = useState(250); // Default chart height
   const [fontSize, setFontSize] = useState({
     xaxis: "12px",
@@ -52,15 +65,7 @@ const MotorLifterChart = () => {
       },
     },
     xaxis: {
-      categories: [
-        "09.30",
-        "10.00",
-        "10.30",
-        "11.00",
-        "11.30",
-        "12.00",
-        "12.30",
-      ],
+      categories: dataSumbuX,
       labels: {
         style: {
           fontSize: fontSize.xaxis,
@@ -68,8 +73,7 @@ const MotorLifterChart = () => {
       },
     },
     yaxis: {
-      min: 100,
-      max: 300,
+      max: max,
       tickAmount: 4,
       labels: {
         formatter: (value) => `${value}A`,
@@ -81,7 +85,7 @@ const MotorLifterChart = () => {
     annotations: {
       yaxis: [
         {
-          y: 290,
+          y: max,
           borderColor: "red",
           label: {
             borderColor: "red",
@@ -90,11 +94,11 @@ const MotorLifterChart = () => {
               background: "red",
               fontSize: fontSize.annotations,
             },
-            text: "Max 290A",
+            text: `Max ${max}A`,
           },
         },
         {
-          y: 261,
+          y: min,
           borderColor: "blue",
           label: {
             borderColor: "blue",
@@ -103,22 +107,22 @@ const MotorLifterChart = () => {
               background: "blue",
               fontSize: fontSize.annotations,
             },
-            text: "Min 261A",
+            text: `Min ${min}A`,
           },
         },
-        {
-          y: 200,
-          borderColor: "black",
-          label: {
-            borderColor: "black",
-            style: {
-              color: "black",
-              background: "white",
-              fontSize: fontSize.annotations,
-            },
-            text: "Rated",
-          },
-        },
+        // {
+        //   y: 200,
+        //   borderColor: "black",
+        //   label: {
+        //     borderColor: "black",
+        //     style: {
+        //       color: "black",
+        //       background: "white",
+        //       fontSize: fontSize.annotations,
+        //     },
+        //     text: "Rated",
+        //   },
+        // },
       ],
     },
     stroke: {
@@ -138,7 +142,7 @@ const MotorLifterChart = () => {
   const chartSeries = [
     {
       name: "Current",
-      data: [210, 290, 230, 250, 261, 200, 240],
+      data: dataSumbuY,
     },
   ];
 
@@ -148,11 +152,17 @@ const MotorLifterChart = () => {
       <div className="flex items-center justify-between">
         {/* Title */}
         <h2 className={`font-bold text-center flex-grow ${fontSize.title}`}>
-          Current Motor Lifter (A)
+          {title}
         </h2>
         {/* Icon */}
         <button>
-          <CircleOutlined className="text-black bg-hijau h-20 w-20 border border-black" />
+          {indicator?.toLowerCase() === "merah" ? (
+            <CloseOutlined className="border border-black text-black bg-merah h-20 w-20 -rotate-90" />
+          ) : indicator?.toLowerCase() === "kuning" ? (
+            <PlayArrowOutlined className="border border-black text-black bg-kuning h-20 w-20 -rotate-90" />
+          ) : (
+            <CircleOutlined className="text-black bg-hijau h-20 w-20 border border-black" />
+          )}
         </button>
       </div>
       {/* Chart */}
@@ -166,4 +176,4 @@ const MotorLifterChart = () => {
   );
 };
 
-export default MotorLifterChart;
+export default CurrentMotorChart;
