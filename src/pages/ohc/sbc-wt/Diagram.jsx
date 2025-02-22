@@ -21,67 +21,67 @@ const Diagram = () => {
 
   useEffect(() => {
     const ohcsInSP0 = spData
-      ?.filter((sp) => sp?.name === "SP0")
+      ?.filter((sp) => sp?.name === "SP 0")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP1 = spData
-      ?.filter((sp) => sp?.name === "SP1")
+      ?.filter((sp) => sp?.name === "SP 1")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP2 = spData
-      ?.filter((sp) => sp?.name === "SP2")
+      ?.filter((sp) => sp?.name === "SP 2")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP3 = spData
-      ?.filter((sp) => sp?.name === "SP3")
+      ?.filter((sp) => sp?.name === "SP 3")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP4 = spData
-      ?.filter((sp) => sp?.name === "SP4")
+      ?.filter((sp) => sp?.name === "SP 4")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP5 = spData
-      ?.filter((sp) => sp?.name === "SP5")
+      ?.filter((sp) => sp?.name === "SP 5")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP6 = spData
-      ?.filter((sp) => sp?.name === "SP6")
+      ?.filter((sp) => sp?.name === "SP 6")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP7 = spData
-      ?.filter((sp) => sp?.name === "SP7")
+      ?.filter((sp) => sp?.name === "SP 7")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP8 = spData
-      ?.filter((sp) => sp?.name === "SP8")
+      ?.filter((sp) => sp?.name === "SP 8")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP8C = spData
-      ?.filter((sp) => sp?.name === "SP8C")
+      ?.filter((sp) => sp?.name === "SP 8C")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP9 = spData
-      ?.filter((sp) => sp?.name === "SP9")
+      ?.filter((sp) => sp?.name === "SP 9")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP10 = spData
-      ?.filter((sp) => sp?.name === "SP10")
+      ?.filter((sp) => sp?.name === "SP 10")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 
     const ohcsInSP11 = spData
-      ?.filter((sp) => sp?.name === "SP11")
+      ?.filter((sp) => sp?.name === "SP 11")
       .map((spDetail) => spDetail?.ohc?.name)
       .map((name) => name?.replace("OHC", ""));
 

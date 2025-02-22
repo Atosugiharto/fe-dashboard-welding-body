@@ -16,7 +16,7 @@ export const OhcDetail2 = () => {
 
   const listOhc = [
     {
-      id: "OHC1",
+      id: "OHC 1",
       name: "OHC 1",
       component: (
         <OhcCurrentCycle
@@ -25,7 +25,7 @@ export const OhcDetail2 = () => {
       ),
     },
     {
-      id: "OHC2",
+      id: "OHC 2",
       name: "OHC 2",
       component: (
         <OhcCurrentCycle
@@ -34,7 +34,7 @@ export const OhcDetail2 = () => {
       ),
     },
     {
-      id: "OHC3",
+      id: "OHC 3",
       name: "OHC 3",
       component: (
         <OhcCurrentCycle
@@ -43,7 +43,7 @@ export const OhcDetail2 = () => {
       ),
     },
     {
-      id: "OHC4",
+      id: "OHC 4",
       name: "OHC 4",
       component: (
         <OhcCurrentCycle
@@ -52,7 +52,7 @@ export const OhcDetail2 = () => {
       ),
     },
     {
-      id: "OHC5",
+      id: "OHC 5",
       name: "OHC 5",
       component: (
         <OhcCurrentCycle
@@ -61,7 +61,7 @@ export const OhcDetail2 = () => {
       ),
     },
     {
-      id: "OHC6",
+      id: "OHC 6",
       name: "OHC 6",
       component: (
         <OhcCurrentCycle
@@ -107,7 +107,7 @@ export const OhcDetail2 = () => {
               </Tab>
             ))}
             <Link
-              to="/ohc-sbc-wt-detail-history/OHC1"
+              to="/ohc-sbc-wt-detail-history/OHC 1"
               as="div"
               className={
                 "w-full text-center py-3 text-sm 4k:text-2xl font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "

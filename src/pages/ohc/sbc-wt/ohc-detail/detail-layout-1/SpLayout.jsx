@@ -15,15 +15,15 @@ export const SpLayout = () => {
   const navigate = useNavigate();
   const listTabSp = [
     {
-      id: "SP1",
+      id: "SP 1",
       name: "SP 1",
     },
     {
-      id: "SP7",
+      id: "SP 7",
       name: "SP 7",
     },
     {
-      id: "SP8",
+      id: "SP 8",
       name: "SP 8",
     },
     {

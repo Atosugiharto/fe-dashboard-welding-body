@@ -12,32 +12,32 @@ export const OhcDetail3 = () => {
   const navigate = useNavigate();
   const listOhc = [
     {
-      id: "OHC1",
+      id: "OHC 1",
       name: "OHC 1",
       component: <OhcHistoryConditions />,
     },
     {
-      id: "OHC2",
+      id: "OHC 2",
       name: "OHC 2",
       component: <OhcHistoryConditions />,
     },
     {
-      id: "OHC3",
+      id: "OHC 3",
       name: "OHC 3",
       component: <OhcHistoryConditions />,
     },
     {
-      id: "OHC4",
+      id: "OHC 4",
       name: "OHC 4",
       component: <OhcHistoryConditions />,
     },
     {
-      id: "OHC5",
+      id: "OHC 5",
       name: "OHC 5",
       component: <OhcHistoryConditions />,
     },
     {
-      id: "OHC6",
+      id: "OHC 6",
       name: "OHC 6",
       component: <OhcHistoryConditions />,
     },
@@ -79,7 +79,7 @@ export const OhcDetail3 = () => {
             ))}
             <Link
               as="div"
-              to={`/ohc-sbc-wt-sp/SP1`}
+              to={`/ohc-sbc-wt-sp/SP 1`}
               className={
                 "w-full text-center py-3 text-sm 4k:text-2xl font-bold rounded-lg cursor-pointer bg-tombol-abu-tua text-tulisan-tombol-abu-tua "
               }

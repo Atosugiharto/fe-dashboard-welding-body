@@ -36,7 +36,7 @@ export const useOhcSocket = () => {
         const data = await response.json();
         dispatch(setOhcData(data?.data?.ohcs)); // Update data ke Redux
         dispatch(setSummary(data?.data?.summary)); // Update data ke Redux
-        dispatch(setWarningLogs(data?.data?.warningLogs)); // Update data ke Redux
+        dispatch(setWarningLogs(data?.data?.warningRecord)); // Update data ke Redux
         dispatch(setSpData(data?.data?.sp)); // Update data ke Redux
       } catch (error) {
         console.error("Error fetching data from API:", error);
@@ -47,7 +47,7 @@ export const useOhcSocket = () => {
     socket.on("ohcStatus", (data) => {
       dispatch(setOhcData(data?.ohcs)); // Update data ke Redux
       dispatch(setSummary(data?.summary)); // Update data ke Redux
-      dispatch(setWarningLogs(data?.warningLogs)); // Update data ke Redux
+      dispatch(setWarningLogs(data?.warningRecord)); // Update data ke Redux
       dispatch(setSpData(data?.sp)); // Update data ke Redux
     });
 
