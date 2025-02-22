@@ -75,6 +75,7 @@ const TemperatureMotorChart = ({
     },
     yaxis: {
       max: max,
+      min: 0,
       tickAmount: 5,
       labels: {
         formatter: (value) => `${value}°C`,

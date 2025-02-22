@@ -4,12 +4,7 @@ const initialState = {
   ohcData: [],
   spData: [],
   summary: {},
-  warningLogs: [
-    { date: "25/08/24", time: "14:12", message: "OHC 3 High Temp" },
-    { date: "25/08/24", time: "07:10", message: "OHC 5 High Temp" },
-    { date: "24/08/24", time: "15:12", message: "OHC 4 High Temp" },
-    { date: "24/08/24", time: "15:12", message: "E-CAT Fault" },
-  ],
+  warningLogs: [],
 };
 
 const ohcSlice = createSlice({
@@ -25,8 +20,12 @@ const ohcSlice = createSlice({
     setSummary(state, action) {
       state.summary = action.payload;
     },
+    setWarningLogs(state, action) {
+      state.warningLogs = action.payload;
+    },
   },
 });
 
-export const { setOhcData, setSpData, setSummary } = ohcSlice.actions;
+export const { setOhcData, setSpData, setSummary, setWarningLogs } =
+  ohcSlice.actions;
 export default ohcSlice.reducer;

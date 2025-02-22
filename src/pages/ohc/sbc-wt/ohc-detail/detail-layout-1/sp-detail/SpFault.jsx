@@ -2,9 +2,11 @@
 import { MenuDate } from "@src/share-components/MenuDate";
 import DetailCaseChart from "@src/share-components/DetailCaseChart";
 import TotalCaseChart from "../../../../../../share-components/TotalCaseChart";
-import TableWithSorting2 from "../../../../../../share-components/TableWithSorting2";
+import { useOhcSocket } from "../../../../../../share-components/useOhcSocket";
+import TableWarning from "./TableWarning";
 
 export const SpFault = () => {
+  const { warningLogs } = useOhcSocket();
   return (
     <div>
       <div>
@@ -15,7 +17,7 @@ export const SpFault = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 mt-4">
           <div className="bg-white rounded-lg py-2 pl-5 pr-2">
             <div className="text-md 4k:text-3xl font-bold mb-4">Warning</div>
-            <TableWithSorting2 maxHeight="max-h-screen" />
+            <TableWarning data={warningLogs} />
           </div>
 
           <div className="grid grid-cols-1 gap-2">

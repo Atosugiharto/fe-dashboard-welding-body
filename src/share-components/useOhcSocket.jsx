@@ -2,11 +2,18 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
-import { setOhcData, setSpData, setSummary } from "../slices/ohcSlice";
+import {
+  setOhcData,
+  setSpData,
+  setSummary,
+  setWarningLogs,
+} from "../slices/ohcSlice";
 import { baseApiUrl, token } from "./api";
 
 export const useOhcSocket = () => {
-  const { ohcData, spData, summary } = useSelector((state) => state.ohc); // Ambil data dari Redux
+  const { ohcData, spData, summary, warningLogs } = useSelector(
+    (state) => state.ohc
+  ); // Ambil data dari Redux
   const dispatch = useDispatch();
   const { id } = useParams(); // Ambil ID dari parameter URL
 
@@ -29,6 +36,7 @@ export const useOhcSocket = () => {
         const data = await response.json();
         dispatch(setOhcData(data?.data?.ohcs)); // Update data ke Redux
         dispatch(setSummary(data?.data?.summary)); // Update data ke Redux
+        dispatch(setWarningLogs(data?.data?.warningLogs)); // Update data ke Redux
         dispatch(setSpData(data?.data?.sp)); // Update data ke Redux
       } catch (error) {
         console.error("Error fetching data from API:", error);
@@ -39,6 +47,7 @@ export const useOhcSocket = () => {
     socket.on("ohcStatus", (data) => {
       dispatch(setOhcData(data?.ohcs)); // Update data ke Redux
       dispatch(setSummary(data?.summary)); // Update data ke Redux
+      dispatch(setWarningLogs(data?.warningLogs)); // Update data ke Redux
       dispatch(setSpData(data?.sp)); // Update data ke Redux
     });
 
@@ -69,5 +78,5 @@ export const useOhcSocket = () => {
     };
   }, [dispatch]);
 
-  return { ohcData, id, spData, summary };
+  return { ohcData, id, spData, summary, warningLogs };
 };

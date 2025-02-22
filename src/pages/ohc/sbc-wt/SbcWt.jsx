@@ -3,12 +3,12 @@ import { CardWithValue } from "@src/share-components/CardWithValue";
 import { CardOhcDetail } from "../../../share-components/CardOhcDetail";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Diagram from "./Diagram";
-import { useSelector } from "react-redux";
 import { useOhcSocket } from "@src/share-components/useOhcSocket";
+import { formatDateTimeWarningLogs } from "../../../share-components/Helper";
+import { Link } from "react-router-dom";
 
 export const SbcWt = () => {
-  const { warningLogs } = useSelector((state) => state.ohc);
-  const { ohcData, summary } = useOhcSocket();
+  const { ohcData, summary, warningLogs } = useOhcSocket();
 
   return (
     <div className="4k:text-3xl">
@@ -108,16 +108,20 @@ export const SbcWt = () => {
                 <div className="bg-white rounded-lg p-2 grid grid-cols-12 gap-2">
                   <div className="col-span-11">
                     <p className="font-bold">Warning</p>
-                    {warningLogs?.map((item, index) => (
-                      <div key={index} className="mt-2 ml-6">
-                        <p>{`${item?.date} ${item?.time} : ${item?.message}`}</p>
-                      </div>
-                    ))}
+                    <div className="max-h-60 overflow-y-scroll">
+                      {warningLogs?.map((item) => (
+                        <div key={item?.id} className="mt-2 ml-6">
+                          <p>{`${formatDateTimeWarningLogs(
+                            item?.createdAt
+                          )} : ${item?.detail} ${item?.type}`}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div className="col-span-1 mt-10">
-                    <button>
+                    <Link to={"/ohc-sbc-wt-sp-fault"}>
                       <ChevronRightIcon className="h-7" />
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>

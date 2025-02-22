@@ -74,6 +74,7 @@ const CurrentMotorChart = ({
     },
     yaxis: {
       max: max,
+      min: 0,
       tickAmount: 4,
       labels: {
         formatter: (value) => `${value}A`,
