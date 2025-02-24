@@ -7,13 +7,20 @@ import {
   setSpData,
   setSummary,
   setWarningLogs,
+  setWarningRecordByMonth,
+  setWarningRecordBytype,
 } from "../slices/ohcSlice";
 import { baseApiUrl, token } from "./api";
 
 export const useOhcSocket = () => {
-  const { ohcData, spData, summary, warningLogs } = useSelector(
-    (state) => state.ohc
-  ); // Ambil data dari Redux
+  const {
+    ohcData,
+    spData,
+    summary,
+    warningLogs,
+    warningRecordByMonth,
+    warningRecordBytype,
+  } = useSelector((state) => state.ohc); // Ambil data dari Redux
   const dispatch = useDispatch();
   const { id } = useParams(); // Ambil ID dari parameter URL
 
@@ -36,7 +43,9 @@ export const useOhcSocket = () => {
         const data = await response.json();
         dispatch(setOhcData(data?.data?.ohcs)); // Update data ke Redux
         dispatch(setSummary(data?.data?.summary)); // Update data ke Redux
-        dispatch(setWarningLogs(data?.data?.warningRecord)); // Update data ke Redux
+        dispatch(setWarningLogs(data?.data?.warningRecord?.data)); // Update data ke Redux
+        dispatch(setWarningRecordBytype(data?.data?.warningRecord?.byType)); // Update data ke Redux
+        dispatch(setWarningRecordByMonth(data?.data?.warningRecord?.byMonth)); // Update data ke Redux
         dispatch(setSpData(data?.data?.sp)); // Update data ke Redux
       } catch (error) {
         console.error("Error fetching data from API:", error);
@@ -47,7 +56,9 @@ export const useOhcSocket = () => {
     socket.on("ohcStatus", (data) => {
       dispatch(setOhcData(data?.ohcs)); // Update data ke Redux
       dispatch(setSummary(data?.summary)); // Update data ke Redux
-      dispatch(setWarningLogs(data?.warningRecord)); // Update data ke Redux
+      dispatch(setWarningLogs(data?.warningRecord?.data)); // Update data ke Redux
+      dispatch(setWarningRecordBytype(data?.warningRecord?.byType)); // Update data ke Redux
+      dispatch(setWarningRecordByMonth(data?.warningRecord?.byMonth)); // Update data ke Redux
       dispatch(setSpData(data?.sp)); // Update data ke Redux
     });
 
@@ -78,5 +89,13 @@ export const useOhcSocket = () => {
     };
   }, [dispatch]);
 
-  return { ohcData, id, spData, summary, warningLogs };
+  return {
+    ohcData,
+    id,
+    spData,
+    summary,
+    warningLogs,
+    warningRecordBytype,
+    warningRecordByMonth,
+  };
 };

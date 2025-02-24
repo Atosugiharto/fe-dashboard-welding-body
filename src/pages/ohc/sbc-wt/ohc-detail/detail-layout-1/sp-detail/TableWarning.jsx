@@ -24,10 +24,7 @@ const TableWarning = ({ data }) => {
   };
 
   return (
-    <div
-      style={{ maxHeight: "80%" }}
-      className="overflow-x-auto text-sm 4k:text-2xl"
-    >
+    <div className="max-h-[70vh] overflow-x-auto overflow-y-scroll text-sm 4k:text-2xl">
       <table className="table-auto w-full border-collapse border border-black text-center">
         <thead className="border border-black">
           <tr>

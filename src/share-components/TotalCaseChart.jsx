@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { useOhcSocket } from "./useOhcSocket";
 
 const TotalCaseChart = () => {
   const [chartHeight, setChartHeight] = useState(250); // Default chart height
+  const { warningRecordByMonth } = useOhcSocket();
   const [fontSize, setFontSize] = useState({
     xaxis: "12px",
     yaxis: "12px",
@@ -43,25 +45,15 @@ const TotalCaseChart = () => {
     return () => window.removeEventListener("resize", updateResponsiveSettings);
   }, []);
 
-  const data = [10, 4, 8, 14, 11, 16, 6, 13, 9, 6, 5, 3];
-  const categories = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
+  const data = warningRecordByMonth?.map((item) => item.count);
+  const shortMonths = warningRecordByMonth?.map((item) =>
+    item?.month?.slice(0, 3)
+  );
+  const categories = shortMonths;
   const colors = [
-    "#00FF00", // Green
-    "#FFFF00", // Yellow
     "#FF0000", // Red
+    "#FFFF00", // Yellow
+    "#00FF00", // Green
   ];
 
   const series = [
@@ -87,9 +79,9 @@ const TotalCaseChart = () => {
       },
     },
     colors: data.map((value) => {
-      if (value <= 5) return colors[0];
-      if (value <= 10) return colors[1];
-      return colors[2];
+      if (value <= 5) return colors[2];
+      if (value >= 10) return colors[0];
+      return colors[1];
     }),
     dataLabels: {
       enabled: false,
@@ -97,7 +89,7 @@ const TotalCaseChart = () => {
     xaxis: {
       categories,
       title: {
-        text: "2024",
+        // text: "2024",
         offsetY: 5,
         style: {
           fontSize: fontSize.xaxis,

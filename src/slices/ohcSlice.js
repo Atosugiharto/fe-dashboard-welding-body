@@ -5,6 +5,8 @@ const initialState = {
   spData: [],
   summary: {},
   warningLogs: [],
+  warningRecordBytype: [],
+  warningRecordByMonth: [],
 };
 
 const ohcSlice = createSlice({
@@ -23,9 +25,21 @@ const ohcSlice = createSlice({
     setWarningLogs(state, action) {
       state.warningLogs = action.payload;
     },
+    setWarningRecordBytype(state, action) {
+      state.warningRecordBytype = action.payload;
+    },
+    setWarningRecordByMonth(state, action) {
+      state.warningRecordByMonth = action.payload;
+    },
   },
 });
 
-export const { setOhcData, setSpData, setSummary, setWarningLogs } =
-  ohcSlice.actions;
+export const {
+  setOhcData,
+  setSpData,
+  setSummary,
+  setWarningLogs,
+  setWarningRecordBytype,
+  setWarningRecordByMonth,
+} = ohcSlice.actions;
 export default ohcSlice.reducer;
