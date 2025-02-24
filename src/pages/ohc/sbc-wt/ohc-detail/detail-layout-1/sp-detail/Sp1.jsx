@@ -1,12 +1,11 @@
-import Table from "../../../../../../share-components/Table";
-import TableOhcCycleCondition from "../../../../../../share-components/TableOhcCycleCondition";
+import TableCondition from "../../../../../../share-components/TableCondition";
 import { useOhcSocket } from "@src/share-components/useOhcSocket";
 import sp1_1 from "@src/assets/sp1-1.PNG";
 import sp1_2 from "@src/assets/sp1-2.PNG";
 
 export const Sp1 = () => {
   const { spData, id } = useOhcSocket();
-  const selectedData = spData?.find((data) => data.name === id);
+  const selectedData = spData?.find((data) => data?.name === id);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
@@ -29,13 +28,17 @@ export const Sp1 = () => {
           <div className="text-md 4k:text-3xl font-bold mb-4">
             Current Conditions
           </div>
-          <Table />
+          <TableCondition
+            data={selectedData?.spConditions}
+            pathApi={"sp-condition/reset"}
+          />
         </div>
 
         <div className="bg-white rounded-lg py-2 pl-5 pr-2">
           <div className="text-md 4k:text-3xl font-bold mb-4">Cycle Time</div>
-          <TableOhcCycleCondition
+          <TableCondition
             data={selectedData?.cycle?.cycleDescription}
+            pathApi={"cycle/reset"}
           />
         </div>
       </div>

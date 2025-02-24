@@ -17,10 +17,12 @@ import { Dashboard } from "./pages/dashboard/Dashboard";
 import { UbfMbt } from "./pages/ohc/ubf-mbt/UbfMbt";
 import { MbtMbr } from "./pages/ohc/mbt-mbr/MbtMbr";
 import { MbrSbc } from "./pages/ohc/mbr-sbc/MbrSbc";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div>
+      <Toaster />
       <Router>
         <Routes>
           <Route path="login" element={<Login />} />

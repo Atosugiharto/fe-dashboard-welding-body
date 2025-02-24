@@ -27,7 +27,7 @@ export const SpLayout = () => {
       name: "SP 8",
     },
     {
-      id: "repair",
+      id: "SP 0",
       name: "Repair",
     },
   ];

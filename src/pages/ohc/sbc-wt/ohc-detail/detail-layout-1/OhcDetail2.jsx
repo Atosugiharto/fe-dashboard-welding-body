@@ -21,6 +21,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },
@@ -30,6 +31,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },
@@ -39,6 +41,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },
@@ -48,6 +51,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },
@@ -57,6 +61,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },
@@ -66,6 +71,7 @@ export const OhcDetail2 = () => {
       component: (
         <OhcCurrentCycle
           dataCycleConditions={selectedData?.cycle?.cycleDescription}
+          dataCurrentConditions={selectedData?.ohcConditions}
         />
       ),
     },

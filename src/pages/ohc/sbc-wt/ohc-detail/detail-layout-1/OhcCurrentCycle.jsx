@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
-import Table from "../../../../../share-components/Table";
-import TableOhcCycleCondition from "../../../../../share-components/TableOhcCycleCondition";
+import TableCondition from "../../../../../share-components/TableCondition";
 import ohc1_1 from "@src/assets/ohc-cycle.PNG";
 
-export const OhcCurrentCycle = ({ dataCycleConditions = [] }) => {
+export const OhcCurrentCycle = ({
+  dataCurrentConditions = [],
+  dataCycleConditions = [],
+}) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
       <div className="lg:col-span-4 bg-white rounded-lg">
@@ -16,12 +18,15 @@ export const OhcCurrentCycle = ({ dataCycleConditions = [] }) => {
           <div className="text-md 4k:text-3xl font-bold mb-4">
             Current Conditions
           </div>
-          <Table />
+          <TableCondition
+            data={dataCurrentConditions}
+            pathApi={"ohc-condition/reset"}
+          />
         </div>
 
         <div className="bg-white rounded-lg py-2 pl-5 pr-2">
           <div className="text-md 4k:text-3xl font-bold mb-4">Cycle Time</div>
-          <TableOhcCycleCondition data={dataCycleConditions} />
+          <TableCondition data={dataCycleConditions} pathApi={"cycle/reset"} />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 
 const DetailCaseChart = () => {
-  const [selectedMonth, setSelectedMonth] = useState("January");
+  const [selectedMonth, setSelectedMonth] = useState("Januari");
   const [chartHeight, setChartHeight] = useState(250);
   const [fontSize, setFontSize] = useState({
     xaxis: "12px",
@@ -35,9 +35,9 @@ const DetailCaseChart = () => {
   }, []);
 
   const data = {
-    January: [4, 8, 8, 11, 11, 13, 6, 6, 9, 6, 3, 10],
-    February: [5, 7, 9, 10, 12, 14, 5, 7, 8, 7, 2, 8],
-    March: [6, 9, 7, 12, 13, 15, 4, 8, 7, 8, 4, 9],
+    Januari: [4, 8, 8, 11, 11, 13, 6, 6, 9, 6, 3, 10],
+    Februari: [5, 7, 9, 10, 12, 14, 5, 7, 8, 7, 2, 8],
+    Maret: [6, 9, 7, 12, 13, 15, 4, 8, 7, 8, 4, 9],
   };
 
   const categories = [
@@ -118,10 +118,6 @@ const DetailCaseChart = () => {
     },
   };
 
-  const handleMonthChange = (event) => {
-    setSelectedMonth(event.target.value);
-  };
-
   return (
     <div className="flex flex-col items-center p-2">
       <div className="flex text-xs 4k:text-xl justify-between w-full items-center mb-4">
@@ -133,12 +129,21 @@ const DetailCaseChart = () => {
           <select
             id="month"
             value={selectedMonth}
-            onChange={handleMonthChange}
+            onChange={(e) => setSelectedMonth(e.target.value)}
             className="border border-gray-300 rounded px-2 py-1"
           >
-            <option value="January">January</option>
-            <option value="February">February</option>
-            <option value="March">March</option>
+            <option value="Januari">January</option>
+            <option value="Februari">February</option>
+            <option value="Maret">March</option>
+            <option value="April">April</option>
+            <option value="Mei">May</option>
+            <option value="Juni">June</option>
+            <option value="Juli">July</option>
+            <option value="Agustus">August</option>
+            <option value="September">September</option>
+            <option value="Oktober">October</option>
+            <option value="November">November</option>
+            <option value="Desember">December</option>
           </select>
         </div>
       </div>

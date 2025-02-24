@@ -1,9 +1,12 @@
-import Table from "../../../../../../share-components/Table";
 import sp_repair_1 from "@src/assets/sp-repair-1.PNG";
 import sp_repair_2 from "@src/assets/sp-repair-2.PNG";
 import sp_repair_3 from "@src/assets/sp-repair-3.PNG";
+import TableCondition from "../../../../../../share-components/TableCondition";
+import { useOhcSocket } from "../../../../../../share-components/useOhcSocket";
 
 export const SpRepair = () => {
+  const { spData, id } = useOhcSocket();
+  const selectedData = spData?.find((data) => data?.name === id);
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
       <div className="lg:col-span-4 bg-white rounded-lg">
@@ -34,7 +37,11 @@ export const SpRepair = () => {
           <div className="text-md 4k:text-3xl font-bold mb-4">
             Current Conditions
           </div>
-          <Table maxHeight="max-h-96" />
+          <TableCondition
+            maxHeight="max-h-96"
+            data={selectedData?.spConditions}
+            pathApi={"sp-condition/reset"}
+          />
         </div>
       </div>
     </div>
