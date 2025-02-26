@@ -2,29 +2,22 @@
 import { useState } from "react";
 import { SwapVert, PlayArrowOutlined } from "@mui/icons-material";
 
-const TableDetailHistory = () => {
+const TableDetailHistory = ({ data = [] }) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
 
-  const data = [
-    {
-      no: 1,
-      date: 30,
-      month: "October",
-      year: 2024,
-      id: "LSX70C",
-      error: 0,
-      condition: "good",
-      status: "ready",
-    },
-  ];
-
-  const sortedData = [...data].sort((a, b) => {
-    if (sortConfig.key) {
-      const order = sortConfig.direction === "asc" ? 1 : -1;
-      return a[sortConfig.key] > b[sortConfig.key] ? order : -order;
-    }
-    return 0;
-  });
+  const sortedData = Array.isArray(data)
+    ? [...data].sort((a, b) => {
+        if (
+          sortConfig.key &&
+          a?.[sortConfig.key] !== undefined &&
+          b?.[sortConfig.key] !== undefined
+        ) {
+          const order = sortConfig.direction === "asc" ? 1 : -1;
+          return a[sortConfig.key] > b[sortConfig.key] ? order : -order;
+        }
+        return 0;
+      })
+    : [];
 
   const handleSort = (key) => {
     setSortConfig((prev) => ({
@@ -34,12 +27,9 @@ const TableDetailHistory = () => {
   };
 
   return (
-    <div
-      style={{ maxHeight: "70%" }}
-      className={`overflow-x-auto text-xl 4k:text-5xl font-bold`}
-    >
+    <div className="max-h-64 overflow-x-auto overflow-y-auto text-xl 4k:text-5xl font-bold">
       <table className="table-auto w-full border-collapse border-2 border-white text-center">
-        <thead className="bg-dongker text-white">
+        <thead className="bg-dongker text-white border-2 border-dongker">
           <tr>
             {["ID", "Condition", "Counting Error", "Status"].map(
               (header, index) => (
@@ -66,26 +56,33 @@ const TableDetailHistory = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedData.map((row) => (
-            <tr key={row.no} className="">
-              <td className="border-x-2 uppercase text-center bg-tombol-abu-tua border-white px-1 py-4">
-                {row.id}
-              </td>
-              <td className="border-x-2 text-center bg-tombol-abu-tua uppercase border-white px-1 py-4">
-                {row.condition}
-              </td>
-              <td className="border-x-2 text-5xl text-center bg-tombol-abu-tua border-white px-1 py-4">
-                {row.error}
-              </td>
+          {sortedData?.length > 0 ? (
+            sortedData?.map((row, index) => (
+              <tr key={row?.id || index}>
+                <td className="border-x-2 uppercase text-center bg-tombol-abu-tua border-white px-1 py-4">
+                  {row?.tagCd || "-"}
+                </td>
+                <td className="border-x-2 text-center bg-tombol-abu-tua uppercase border-white px-1 py-4">
+                  {row?.condition || "-"}
+                </td>
+                <td className="border-x-2 text-5xl text-center bg-tombol-abu-tua border-white px-1 py-4">
+                  {row?.counter ?? "-"}
+                </td>
+                <td className="border-x-2 text-5xl text-center bg-tombol-abu-tua border-white px-1 py-4">
+                  {row?.status || "-"}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
               <td
-                className={`border-x-2 text-center uppercase border-white px-1 py-4 ${
-                  row.status.toLowerCase() === "ready" ? "bg-hijau" : "bg-merah"
-                }`}
+                colSpan="4"
+                className="border-2 border-dongker px-1 py-2 text-center text-sm font-normal"
               >
-                {row.status}
+                No data found
               </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

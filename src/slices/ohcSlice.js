@@ -7,6 +7,10 @@ const initialState = {
   warningLogs: [],
   warningRecordBytype: [],
   warningRecordByMonth: [],
+  ohcConditionRecord: [],
+  spConditionRecord: [],
+  selectedMonth: new Date().toLocaleString("id-ID", { month: "long" }), // Default ke bulan saat ini
+  selectedYear: new Date().getFullYear().toString(), // Default ke tahun saat ini
 };
 
 const ohcSlice = createSlice({
@@ -31,6 +35,12 @@ const ohcSlice = createSlice({
     setWarningRecordByMonth(state, action) {
       state.warningRecordByMonth = action.payload;
     },
+    setSelectedMonth(state, action) {
+      state.selectedMonth = action.payload;
+    },
+    setSelectedYear(state, action) {
+      state.selectedYear = action.payload;
+    },
   },
 });
 
@@ -41,5 +51,7 @@ export const {
   setWarningLogs,
   setWarningRecordBytype,
   setWarningRecordByMonth,
+  setSelectedMonth,
+  setSelectedYear,
 } = ohcSlice.actions;
 export default ohcSlice.reducer;

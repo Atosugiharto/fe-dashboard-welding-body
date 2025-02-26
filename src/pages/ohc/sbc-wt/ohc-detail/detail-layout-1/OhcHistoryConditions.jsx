@@ -1,8 +1,12 @@
-import TableDetailHistory from "@src/share-components/TableDetailHistory";
-import TableWithSorting from "@src/share-components/TableWithSorting";
 import ohc1_1 from "@src/assets/ohc-cycle.PNG";
+import TableHistoryCondition from "./TableHistoryCondition";
+import { useOhcSocket } from "../../../../../share-components/useOhcSocket";
+import TableDetailHistory from "../../../../../share-components/TableDetailHistory";
 
 export const OhcHistoryConditions = () => {
+  const { ohcData, id } = useOhcSocket();
+  const selectedData = ohcData?.find((data) => data?.name === id);
+  // console.log(selectedData, "data");
   return (
     <div className="grid grid-cols-1 lg:grid-cols-9 gap-2 mt-4">
       <div className="lg:col-span-4 bg-white rounded-lg">
@@ -15,9 +19,9 @@ export const OhcHistoryConditions = () => {
           <div className="text-md 4k:text-3xl font-bold mb-4">
             History Conditions
           </div>
-          <TableWithSorting />
+          <TableHistoryCondition data={selectedData?.ohcConditionRecord} />
           <div className="mt-2">
-            <TableDetailHistory />
+            <TableDetailHistory data={selectedData?.ohcConditionRecord} />
           </div>
         </div>
       </div>

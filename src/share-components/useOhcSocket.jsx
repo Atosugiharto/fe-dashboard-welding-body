@@ -9,6 +9,8 @@ import {
   setWarningLogs,
   setWarningRecordByMonth,
   setWarningRecordBytype,
+  setSelectedMonth,
+  setSelectedYear,
 } from "../slices/ohcSlice";
 import { baseApiUrl, token } from "./api";
 
@@ -20,66 +22,68 @@ export const useOhcSocket = () => {
     warningLogs,
     warningRecordByMonth,
     warningRecordBytype,
-  } = useSelector((state) => state.ohc); // Ambil data dari Redux
-  const dispatch = useDispatch();
-  const { id } = useParams(); // Ambil ID dari parameter URL
+    selectedMonth,
+    selectedYear,
+  } = useSelector((state) => state.ohc);
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+  const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
     const socket = io(baseApiUrl, {
       transports: ["websocket", "polling"],
       withCredentials: true,
-      reconnection: true, // Aktifkan reconnect
+      reconnection: true,
     });
 
     const fetchDataFromApi = async () => {
       try {
-        const response = await fetch(`${baseApiUrl}/api/monitoring`, config);
+        const response = await fetch(`${baseApiUrl}/api/monitoring`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         const data = await response.json();
-        dispatch(setOhcData(data?.data?.ohcs)); // Update data ke Redux
-        dispatch(setSummary(data?.data?.summary)); // Update data ke Redux
-        dispatch(setWarningLogs(data?.data?.warningRecord?.data)); // Update data ke Redux
-        dispatch(setWarningRecordBytype(data?.data?.warningRecord?.byType)); // Update data ke Redux
-        dispatch(setWarningRecordByMonth(data?.data?.warningRecord?.byMonth)); // Update data ke Redux
-        dispatch(setSpData(data?.data?.sp)); // Update data ke Redux
+        dispatch(setOhcData(data?.data?.ohcs));
+        dispatch(setSummary(data?.data?.summary));
+        dispatch(setWarningLogs(data?.data?.warningRecord?.data));
+        dispatch(setWarningRecordBytype(data?.data?.warningRecord?.byType));
+        dispatch(setWarningRecordByMonth(data?.data?.warningRecord?.byMonth));
+        dispatch(setSpData(data?.data?.sp));
       } catch (error) {
         console.error("Error fetching data from API:", error);
       }
     };
 
-    // Event listener untuk menerima data dari socket
     socket.on("ohcStatus", (data) => {
-      dispatch(setOhcData(data?.ohcs)); // Update data ke Redux
-      dispatch(setSummary(data?.summary)); // Update data ke Redux
-      dispatch(setWarningLogs(data?.warningRecord?.data)); // Update data ke Redux
-      dispatch(setWarningRecordBytype(data?.warningRecord?.byType)); // Update data ke Redux
-      dispatch(setWarningRecordByMonth(data?.warningRecord?.byMonth)); // Update data ke Redux
-      dispatch(setSpData(data?.sp)); // Update data ke Redux
+      dispatch(setOhcData(data?.ohcs));
+      dispatch(setSummary(data?.summary));
+      dispatch(setWarningLogs(data?.warningRecord?.data));
+      dispatch(setWarningRecordBytype(data?.warningRecord?.byType));
+      dispatch(setWarningRecordByMonth(data?.warningRecord?.byMonth));
+      dispatch(setSpData(data?.sp));
     });
 
-    // Event listener saat socket berhasil terhubung
     socket.on("connect", () => {
       console.log("Socket connected");
     });
 
-    // Event listener saat socket terputus
     socket.on("disconnect", () => {
       console.warn("Socket disconnected, fetching data from API...");
-      fetchDataFromApi(); // Ambil data dari API saat socket mati
+      fetchDataFromApi();
     });
 
-    // Event listener jika terjadi error saat koneksi
     socket.on("connect_error", () => {
       console.error("Socket connection error, fetching data from API...");
-      fetchDataFromApi(); // Ambil data dari API jika terjadi error koneksi
+      fetchDataFromApi();
     });
 
-    // Cleanup saat komponen di-unmount
+    // Emit filter request setiap kali bulan atau tahun berubah
+    if (selectedMonth && selectedYear) {
+      socket.emit("getFilteredWarnigRecord", {
+        year: selectedYear,
+        month: selectedMonth,
+      });
+    }
+
     return () => {
       socket.off("ohcStatus");
       socket.off("connect");
@@ -87,7 +91,7 @@ export const useOhcSocket = () => {
       socket.off("connect_error");
       socket.close();
     };
-  }, [dispatch]);
+  }, [dispatch, selectedMonth, selectedYear]);
 
   return {
     ohcData,
@@ -97,5 +101,9 @@ export const useOhcSocket = () => {
     warningLogs,
     warningRecordBytype,
     warningRecordByMonth,
+    selectedMonth,
+    selectedYear,
+    setSelectedMonth: (month) => dispatch(setSelectedMonth(month)),
+    setSelectedYear: (year) => dispatch(setSelectedYear(year)),
   };
 };

@@ -1,8 +1,15 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Chart from "react-apexcharts";
+import { setSelectedMonth, setSelectedYear } from "../slices/ohcSlice";
 
 const DetailCaseChart = () => {
-  const [selectedMonth, setSelectedMonth] = useState("Januari");
+  const dispatch = useDispatch();
+  const { warningRecordBytype, selectedMonth, selectedYear } = useSelector(
+    (state) => state.ohc
+  );
+
   const [chartHeight, setChartHeight] = useState(250);
   const [fontSize, setFontSize] = useState({
     xaxis: "12px",
@@ -34,88 +41,59 @@ const DetailCaseChart = () => {
     return () => window.removeEventListener("resize", updateResponsiveSettings);
   }, []);
 
-  const data = {
-    Januari: [4, 8, 8, 11, 11, 13, 6, 6, 9, 6, 3, 10],
-    Februari: [5, 7, 9, 10, 12, 14, 5, 7, 8, 7, 2, 8],
-    Maret: [6, 9, 7, 12, 13, 15, 4, 8, 7, 8, 4, 9],
+  const monthOptions = [
+    { label: "January", value: "Januari" },
+    { label: "February", value: "Februari" },
+    { label: "March", value: "Maret" },
+    { label: "April", value: "April" },
+    { label: "May", value: "Mei" },
+    { label: "June", value: "Juni" },
+    { label: "July", value: "Juli" },
+    { label: "August", value: "Agustus" },
+    { label: "September", value: "September" },
+    { label: "October", value: "Oktober" },
+    { label: "November", value: "November" },
+    { label: "December", value: "Desember" },
+  ];
+
+  const yearOptions = ["2023", "2024", "2025"]; // Tambahkan sesuai kebutuhan
+
+  const handleMonthChange = (e) => {
+    dispatch(setSelectedMonth(e.target.value));
   };
 
-  const categories = [
-    "EIP",
-    "E-CAT",
-    "Li/C",
-    "E/S",
-    "D/S",
-    "Voltage",
-    "Body Double",
-    "Collision",
-    "Overload",
-    "Torque",
-    "Current",
-    "Temp",
-  ];
+  const handleYearChange = (e) => {
+    dispatch(setSelectedYear(e.target.value));
+  };
 
-  const colors = [
-    "#00FF00", // Green
-    "#FFFF00", // Yellow
-    "#FF0000", // Red
-  ];
+  const chartData = warningRecordBytype || [];
+  const categories = chartData?.map((data) => data?.type);
+  const seriesData = chartData?.map((data) => data?.count);
 
-  const series = [
-    {
-      name: "Cases",
-      data: data[selectedMonth],
-    },
-  ];
+  const colors = seriesData.map((value) => {
+    if (value <= 5) return "#00FF00"; // Green
+    if (value <= 10) return "#FFFF00"; // Yellow
+    return "#FF0000"; // Red
+  });
+
+  const series = [{ name: "Cases", data: seriesData }];
 
   const options = {
-    chart: {
-      type: "bar",
-      toolbar: {
-        show: false,
-      },
-    },
+    chart: { type: "bar", toolbar: { show: false } },
     plotOptions: {
-      bar: {
-        distributed: true,
-        horizontal: false,
-        columnWidth: "55%",
-        endingShape: "rounded",
-      },
+      bar: { distributed: true, columnWidth: "55%", endingShape: "rounded" },
     },
-    colors: (data[selectedMonth] || []).map((value) => {
-      if (value <= 5) return colors[0];
-      if (value <= 10) return colors[1];
-      return colors[2];
-    }),
-    dataLabels: {
-      enabled: false,
-    },
+    colors,
+    dataLabels: { enabled: false },
     xaxis: {
       categories,
-      labels: {
-        rotate: -45,
-        style: {
-          fontSize: fontSize.xaxis,
-        },
-      },
+      labels: { rotate: -45, style: { fontSize: fontSize.xaxis } },
     },
     yaxis: {
-      title: {
-        text: "Number of Cases",
-        style: {
-          fontSize: fontSize.yaxis,
-        },
-      },
-      labels: {
-        style: {
-          fontSize: fontSize.yaxis,
-        },
-      },
+      title: { text: "Number of Cases", style: { fontSize: fontSize.yaxis } },
+      labels: { style: { fontSize: fontSize.yaxis } },
     },
-    legend: {
-      show: false,
-    },
+    legend: { show: false },
   };
 
   return (
@@ -124,27 +102,36 @@ const DetailCaseChart = () => {
         <h2 className={`font-bold ${fontSize.title}`}>Detail Case</h2>
         <div className="flex items-center">
           <label htmlFor="month" className="mr-2 text-gray-700">
-            Month
+            Month:
           </label>
           <select
             id="month"
             value={selectedMonth}
-            onChange={(e) => setSelectedMonth(e.target.value)}
+            onChange={handleMonthChange}
             className="border border-gray-300 rounded px-2 py-1"
           >
-            <option value="Januari">January</option>
-            <option value="Februari">February</option>
-            <option value="Maret">March</option>
-            <option value="April">April</option>
-            <option value="Mei">May</option>
-            <option value="Juni">June</option>
-            <option value="Juli">July</option>
-            <option value="Agustus">August</option>
-            <option value="September">September</option>
-            <option value="Oktober">October</option>
-            <option value="November">November</option>
-            <option value="Desember">December</option>
+            {monthOptions.map((month) => (
+              <option key={month?.value} value={month?.value}>
+                {month?.label}
+              </option>
+            ))}
           </select>
+
+          {/* <label htmlFor="year" className="ml-4 mr-2 text-gray-700">
+            Tahun:
+          </label>
+          <select
+            id="year"
+            value={selectedYear}
+            onChange={handleYearChange}
+            className="border border-gray-300 rounded px-2 py-1"
+          >
+            {yearOptions.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select> */}
         </div>
       </div>
       <div className="w-full">
